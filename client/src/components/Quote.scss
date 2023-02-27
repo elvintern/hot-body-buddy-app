@@ -1,0 +1,10 @@
+@use '../styles/abstracts/variables.scss' as v;
+
+.quote {
+  font-family: 'PT Serif', 'Lato';
+  font-size: 3rem;
+  text-transform: capitalize;
+  text-align: center;
+  color: v.$color-white;
+  margin-top: 3rem;
+}

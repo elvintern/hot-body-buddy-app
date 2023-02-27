@@ -1,0 +1,16 @@
+@use 'variables' as v;
+
+@mixin btn-style($bg-color: v.$color-black-light, $font-size: 3rem) {
+  display: block;
+  width: 100%;
+  padding: 1rem 0;
+  font-size: $font-size;
+  text-transform: capitalize;
+  transition: 0.2s linear;
+  border-radius: 3px;
+  color: v.$color-black-light;
+  text-decoration: none;
+  text-align: center;
+  border: solid 1px v.$color-black-light;
+  background-color: v.$color-white;
+}

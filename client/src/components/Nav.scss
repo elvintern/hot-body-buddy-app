@@ -1,0 +1,10 @@
+@use '../styles/abstracts/variables.scss' as v;
+
+.nav {
+  background-color: v.$color-white;
+  padding: v.$padding-section;
+
+  &__logo-img {
+    width: 100%;
+  }
+}
