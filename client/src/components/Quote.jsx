@@ -4,16 +4,15 @@ import './Quote.scss';
 export default function Quote() {
   const [quote, setQuote] = useState({});
 
-  // useEffect(() => {
-  //   fetchQuotes()
-  //     .then((quotes) => {
-  //       let randNum = Math.floor(Math.random() * quotes.length);
-  //       setQuote(quotes[randNum]);
-  //     })
-  //     .catch((err) => {
-  //       console.error(err);
-  //     });
-  // }, []);
+  useEffect(() => {
+    fetch('http://localhost:9000/api/v1/quote')
+      .then((response) => response.json())
+      .then((quotes) => {
+        let randNum = Math.floor(Math.random() * quotes.length);
+        setQuote(quotes[randNum]);
+      })
+      .catch((error) => console.error(error));
+  }, []);
 
   return (
     <>
