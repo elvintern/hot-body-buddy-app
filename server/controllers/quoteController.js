@@ -1,16 +1,14 @@
 import Quote from '../mongodb/models/quote.js';
 
-// get all quotes
-const getQuotes = async (req, res) => {
+// get a random quote
+const getQuote = async (req, res) => {
   try {
     const quotes = await Quote.find({});
-    console.log(quotes);
-    res.status(200).json(quotes);
+    let randNum = Math.floor(Math.random() * quotes.length);
+    res.status(200).json(quotes[randNum]);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
 };
 
-// get a single quote
-
-export { getQuotes };
+export default getQuote;

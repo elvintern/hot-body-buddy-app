@@ -7,9 +7,8 @@ export default function Quote() {
   useEffect(() => {
     fetch('http://localhost:9000/api/v1/quote')
       .then((response) => response.json())
-      .then((quotes) => {
-        let randNum = Math.floor(Math.random() * quotes.length);
-        setQuote(quotes[randNum]);
+      .then((quote) => {
+        setQuote(quote);
       })
       .catch((error) => console.error(error));
   }, []);
