@@ -1,31 +1,43 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 export default function Login() {
   const navigate = useNavigate();
-  const [userEmail, setUserEmail] = useState('');
-  const [userPassword, setUserPassword] = useState('');
+  const [userInfo, setUserInfo] = useState({});
   const [authenticated, setAuthenticated] = useState(true);
-  const [users, setUsers] = useState('');
-
-  // useEffect(() => {
-  //   getUsers().then((data) => setUsers(data));
-  // }, []);
 
   const handleLogin = async (event) => {
     event.preventDefault();
 
-    let result = users.find((user) => {
-      return userEmail === user.email && userPassword === user.password;
-    });
+    fetch('http://localhost:9000/api/v1/user', {
+      method: 'POST',
+      body: JSON.stringify(userInfo),
+      headers: {
+        'content-type': 'application/json',
+      },
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data);
+        if (!data) {
+          setAuthenticated(false);
+        } else {
+          setAuthenticated(true);
+          navigate(`/profile/${data}`);
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
 
-    if (!result) {
-      console.log('Invalid Id or Password');
-      setAuthenticated(false);
-    } else {
-      setAuthenticated(true);
-      navigate(`/profile/${result.id}`);
-    }
+  const handleChange = (event) => {
+    setUserInfo((prev) => ({
+      ...prev,
+      [event.target.name]: event.target.value,
+    }));
   };
 
   return (
@@ -38,8 +50,7 @@ export default function Login() {
           user email
         </label>
         <input
-          onChange={(e) => setUserEmail(e.target.value)}
-          value={userEmail}
+          onChange={handleChange}
           type="email"
           name="userEmail"
           id="userEmail"
@@ -51,8 +62,7 @@ export default function Login() {
           password
         </label>
         <input
-          onChange={(e) => setUserPassword(e.target.value)}
-          value={userPassword}
+          onChange={handleChange}
           type="password"
           name="password"
           id="password"

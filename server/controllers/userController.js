@@ -12,6 +12,21 @@ const getUsers = async (req, res) => {
   }
 };
 
-// get a single quote
+// get a single User
+const getUser = async (req, res) => {
+  try {
+    const { userEmail, password } = req.body;
+    const user = await User.findOne({
+      email: userEmail,
+      password,
+    });
+    if (!user) {
+      return res.status(404).json(false);
+    }
+    res.status(200).json(user.id);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
 
-export { getUsers };
+export { getUsers, getUser };
