@@ -9,28 +9,22 @@ export default function Login() {
   const handleLogin = async (event) => {
     event.preventDefault();
 
-    fetch('http://localhost:9000/api/v1/user', {
+    const response = await fetch('http://localhost:9000/api/v1/user', {
       method: 'POST',
       body: JSON.stringify(userInfo),
       headers: {
         'content-type': 'application/json',
       },
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        console.log(data);
-        if (!data) {
-          setAuthenticated(false);
-        } else {
-          setAuthenticated(true);
-          navigate(`/profile/${data}`);
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    });
+
+    const json = await response.json();
+
+    if (!response.ok) {
+      setAuthenticated(false);
+    } else if (response.ok) {
+      setAuthenticated(true);
+      navigate(`/profile/${json}`);
+    }
   };
 
   const handleChange = (event) => {
