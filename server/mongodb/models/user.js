@@ -7,7 +7,7 @@ const userSchema = new mongoose.Schema({
   pronounce: { type: String, required: true },
   email: { type: String, required: true },
   password: { type: String, required: true },
-  joiningDate: { type: String, required: true },
+  created_at: { type: Date, default: Date.now },
   totalCount: { type: Number, required: true },
   routines: [
     {
@@ -29,7 +29,6 @@ async function seedTestUser() {
       pronounce: 'he/him',
       email: 'elvintern@gmail.com',
       password: '123123',
-      joiningDate: '1-2-2023',
       totalCount: 2,
       routines: [
         {

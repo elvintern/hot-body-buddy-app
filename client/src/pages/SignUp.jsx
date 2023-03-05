@@ -1,31 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Quote from '../components/Quote';
-// import { getUsers, createUser } from '../../apis/users';
 
 export default function SignUp() {
   const navigate = useNavigate();
-  const [userInfo, setUserInfo] = useState({ totalCount: 0 });
-  const [users, setUsers] = useState('');
+  const [userInfo, setUserInfo] = useState({ totalCount: 0, routines: [] });
   const [authenticated, setAuthenticated] = useState(true);
-
-  useEffect(() => {
-    getUsers().then((data) => setUsers(data));
-  }, []);
-
-  useEffect(() => {
-    if (userInfo.id && userInfo.joiningDate) {
-      if (users.every((el) => el.email !== userInfo.email)) {
-        setAuthenticated(true);
-        createUser(userInfo).then(() => {
-          navigate(`/profile/${userInfo.id}`);
-        });
-      } else {
-        setAuthenticated(false);
-        console.log('This email is already used');
-      }
-    }
-  }, [userInfo.id, userInfo.joiningDate]);
 
   const handleChange = (event) => {
     setUserInfo((prev) => ({
@@ -34,19 +14,25 @@ export default function SignUp() {
     }));
   };
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
-    const id = Date.now();
-    const joiningDate = createJoiningDate();
-    setUserInfo((prev) => ({ ...prev, id, joiningDate, routines: [] }));
-  }
 
-  function createJoiningDate() {
-    const date = new Date();
-    let day = date.getDate();
-    let month = date.getMonth() + 1;
-    let year = date.getFullYear();
-    return `${day}-${month}-${year}`;
+    const response = await fetch('http://localhost:9000/api/v1/user/signup', {
+      method: 'POST',
+      body: JSON.stringify(userInfo),
+      headers: {
+        'content-type': 'application/json',
+      },
+    });
+
+    const json = await response.json();
+
+    if (!json) {
+      setAuthenticated(false);
+    } else if (json) {
+      setAuthenticated(true);
+      navigate(`/profile/${json}`);
+    }
   }
 
   return (
