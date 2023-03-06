@@ -30,6 +30,16 @@ const getUser = async (req, res) => {
   }
 };
 
+// Get a User Info by ID
+const getUserInfo = async (req, res) => {
+  try {
+    const userInfo = await User.findById(req.body.userId);
+    res.status(200).json(userInfo);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
 // Create a User
 const createUser = async (req, res) => {
   try {
@@ -64,4 +74,4 @@ const createUser = async (req, res) => {
   }
 };
 
-export { getUsers, getUser, createUser };
+export { getUsers, getUser, getUserInfo, createUser };

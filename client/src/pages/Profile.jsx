@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-// import { fetchUserInfo } from '../../apis/users';
 import Quote from '../components/Quote';
 import './Profile.scss';
 
@@ -9,16 +8,25 @@ const Profile = () => {
   const navigate = useNavigate();
   const [userInfo, setUserInfo] = useState({});
 
-  // useEffect(() => {
-  //   fetchUserInfo({ userId })
-  //     .then((result) => {
-  //       setUserInfo(result.body[0]);
-  //       console.log(JSON.parse(result.body[0].routines));
-  //     })
-  //     .catch((error) => {
-  //       console.error(error.message);
-  //     });
-  // }, [userId]);
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      const response = await fetch(
+        'http://localhost:9000/api/v1/user/profile',
+        {
+          method: 'POST',
+          body: JSON.stringify({ userId }),
+          headers: {
+            'content-type': 'application/json',
+          },
+        }
+      );
+
+      const json = await response.json();
+      setUserInfo(json);
+    };
+
+    fetchUserInfo();
+  }, []);
 
   const manageRoutines = () => {
     navigate(`routine`);
