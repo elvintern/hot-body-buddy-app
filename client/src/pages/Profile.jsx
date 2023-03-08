@@ -51,7 +51,11 @@ const Profile = () => {
             <option defaultChecked>choose your workout routine</option>
             {userInfo.routines.length > 0 &&
               userInfo.routines.map((routine) => {
-                return <option key={routine._id}>{routine.routineName}</option>;
+                return (
+                  <option key={routine.routineName}>
+                    {routine.routineName}
+                  </option>
+                );
               })}
           </select>
         </>
