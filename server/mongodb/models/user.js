@@ -8,11 +8,11 @@ const userSchema = new mongoose.Schema({
   email: { type: String, required: true },
   password: { type: String, required: true },
   created_at: { type: Date, default: Date.now },
-  totalCount: { type: Number, required: true },
+  totalCount: { type: Number },
   routines: [
     {
       routineName: String,
-      rotuine: [String],
+      exercises: [String],
       prevPerformance: [{ exercise: String, reps: [Number], weight: [Number] }],
     },
   ],
@@ -33,7 +33,7 @@ async function seedTestUser() {
       routines: [
         {
           routineName: 'backday',
-          rotuine: ['deadlift', 'let pull down', 'seated row'],
+          exercises: ['deadlift', 'let pull down', 'seated row'],
           prevPerformance: [
             {
               exercise: 'deadlift',
@@ -63,7 +63,6 @@ async function seedTestUser() {
       }
     });
     const checkTestUser = await User.find({});
-    console.log(checkTestUser);
   } catch (error) {
     console.log(error.message);
   }
