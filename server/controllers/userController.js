@@ -52,22 +52,18 @@ const createUser = async (req, res) => {
     } else {
       const { firstName, lastName, goal, pronounce, email, password } =
         req.body;
-      await User.create(
-        {
-          firstName,
-          lastName,
-          goal,
-          pronounce,
-          email,
-          password,
-          routines: [],
-          totalCount: 0,
-        },
-        (err, doc) => {
-          res.status(200).json(doc._id);
-          console.log('User created successfully!');
-        }
-      );
+      const user = await User.create({
+        firstName,
+        lastName,
+        goal,
+        pronounce,
+        email,
+        password,
+        routines: [],
+        totalCount: 0,
+      });
+      res.status(200).json(user._id);
+      console.log('User created successfully!');
     }
   } catch (error) {
     res.status(500).json({ error: error.message });

@@ -16,7 +16,6 @@ export default function SignUp() {
 
   async function handleSubmit(event) {
     event.preventDefault();
-    console.log(userInfo);
     const response = await fetch('http://localhost:9000/api/v1/user/sign-up', {
       method: 'POST',
       body: JSON.stringify(userInfo),
