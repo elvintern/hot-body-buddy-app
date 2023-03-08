@@ -21,7 +21,6 @@ const Profile = () => {
         }
       );
       const json = await response.json();
-      console.log(json);
       setUserInfo(json);
     };
     fetchUserInfo();
@@ -37,23 +36,26 @@ const Profile = () => {
       {!userInfo ? (
         <p>loading...</p>
       ) : (
-        <div className="profile">
-          <p className="profile__welcome-msg">welcome {userInfo.firstName}</p>
-          <p className="profile__report-times">
-            you have been to the gym {userInfo.totalCount} time
-            {userInfo.totalCount > 1 && `s`} since{' '}
-            {userInfo.created_at.substring(0, 10)}
-          </p>
-          <p className="profile__user-goal">your goal: {userInfo.goal}</p>
-        </div>
-      )}
+        <>
+          <div className="profile">
+            <p className="profile__welcome-msg">welcome {userInfo.firstName}</p>
+            <p className="profile__report-times">
+              you have been to the gym {userInfo.totalCount} time
+              {userInfo.totalCount > 1 && `s`} since{' '}
+              {userInfo.created_at.substring(0, 10)}
+            </p>
+            <p className="profile__user-goal">your goal: {userInfo.goal}</p>
+          </div>
 
-      <select name="routine" className="user-routines">
-        <option defaultChecked>choose your workout routine</option>
-        {userInfo.routines.map((routine) => {
-          return <option>{routine.routineName}</option>;
-        })}
-      </select>
+          <select name="routine" className="user-routines">
+            <option defaultChecked>choose your workout routine</option>
+            {userInfo.routines.length > 0 &&
+              userInfo.routines.map((routine) => {
+                return <option key={routine._id}>{routine.routineName}</option>;
+              })}
+          </select>
+        </>
+      )}
 
       <Link className="btn btn--top" to="/exercise">
         start work out
