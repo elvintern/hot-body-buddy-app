@@ -66,7 +66,7 @@ export default function Login() {
         <button onClick={handleLogin} className="btn btn--top">
           login
         </button>
-        <Link to="/signup" className="btn btn--signup">
+        <Link to="/sign-up" className="btn btn--signup">
           sign up
         </Link>
       </form>
