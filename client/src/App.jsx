@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Nav from './components/Nav';
+import Quote from './components/Quote';
 import Home from './pages/Home';
 import SignUp from './pages/SignUp';
 import Profile from './pages/Profile';
@@ -15,6 +16,7 @@ function App() {
       <Router>
         <Nav />
         <main className="main">
+          <Quote />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="sign-up" element={<SignUp />} />

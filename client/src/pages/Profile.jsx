@@ -32,7 +32,6 @@ const Profile = () => {
 
   return (
     <>
-      <Quote />
       {!userInfo ? (
         <p>loading...</p>
       ) : (

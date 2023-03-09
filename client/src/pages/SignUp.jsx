@@ -37,7 +37,6 @@ export default function SignUp() {
 
   return (
     <>
-      <Quote />
       <form className="form form-signup" onSubmit={handleSubmit}>
         <label htmlFor="firstName" className="form__label">
           first name
