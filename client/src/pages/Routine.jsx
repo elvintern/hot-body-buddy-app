@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import ShowExercises from '../components/ShowExercises';
 
 export default function Routine() {
   const { userId } = useParams();
@@ -12,11 +13,10 @@ export default function Routine() {
   function handleSubmit(event) {
     event.preventDefault();
     const userRoutine = { routineName, exercises };
-    console.log(userRoutine);
     setNewRoutine((prev) => [...prev, userRoutine]);
     setRoutineName('');
     setExercise('');
-    console.log(newRoutine);
+    setExercises([]);
   }
 
   function addExercise(event) {
@@ -27,7 +27,7 @@ export default function Routine() {
   }
 
   useEffect(() => {
-    console.log(userId);
+    // console.log(userId);
   }, []);
 
   return (
@@ -55,18 +55,29 @@ export default function Routine() {
           value={exercise}
           onChange={(e) => setExercise(e.target.value)}
         />
-        {exercises.map((el) => {
-          return <p key={el}>{el}</p>;
-        })}
+
+        {exercises.length > 0 && <ShowExercises exercises={exercises} />}
+        {newRoutine.length > 0 && (
+          <div className="routines">
+            {newRoutine.map((el, index) => {
+              return (
+                <div className="routine" key={index}>
+                  <h3 className="heading-tertiary" key={el.routineName}>
+                    {el.routineName}
+                  </h3>
+                  <ShowExercises exercises={el.exercises} />
+                </div>
+              );
+            })}
+          </div>
+        )}
 
         <button onClick={addExercise} className="btn btn-add">
           Add
         </button>
-
         <button onClick={handleSubmit} className="btn btn-signup">
           save
         </button>
-
         <Link to={`/profile/${userId}`} className="btn btn-signup">
           Go Back to Main
         </Link>
