@@ -1,5 +1,17 @@
 import mongoose from 'mongoose';
 
+const PerformanceSchema = new mongoose.Schema({
+  exercise: String,
+  reps: [Number],
+  weight: [Number],
+});
+
+const RoutineSchema = new mongoose.Schema({
+  routineName: String,
+  exercises: [String],
+  prevPerformance: [PerformanceSchema],
+});
+
 const userSchema = new mongoose.Schema({
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
@@ -9,13 +21,11 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true },
   created_at: { type: Date, default: Date.now },
   totalCount: { type: Number },
-  routines: [
-    {
-      routineName: String,
-      exercises: [String],
-      prevPerformance: [{ exercise: String, reps: [Number], weight: [Number] }],
-    },
-  ],
+  routines: [RoutineSchema],
+  // routines: {
+  //   type: [mongoose.Schema.Types.Mixed],
+  //   default: [],
+  // },
 });
 
 const User = mongoose.model('User', userSchema);
@@ -63,6 +73,7 @@ async function seedTestUser() {
       }
     });
     const checkTestUser = await User.find({});
+    console.log(checkTestUser);
   } catch (error) {
     console.log(error.message);
   }

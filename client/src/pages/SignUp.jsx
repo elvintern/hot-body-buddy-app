@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 export default function SignUp() {
   const navigate = useNavigate();
-  const [userInfo, setUserInfo] = useState({ totalCount: 0, routines: [] });
+  const [userInfo, setUserInfo] = useState({});
   const [authenticated, setAuthenticated] = useState(true);
 
   const handleChange = (event) => {

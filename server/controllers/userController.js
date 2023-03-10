@@ -52,18 +52,27 @@ const createUser = async (req, res) => {
     } else {
       const { firstName, lastName, goal, pronounce, email, password } =
         req.body;
-      const user = await User.create({
+      const user = await new User({
         firstName,
         lastName,
         goal,
         pronounce,
         email,
         password,
-        routines: [],
+        // routines: [],
         totalCount: 0,
       });
-      res.status(200).json(user._id);
-      console.log('User created successfully!');
+
+      console.log(user);
+
+      user.save(function (err) {
+        if (err) {
+          console.error(err);
+        } else {
+          res.status(200).json(user._id);
+          console.log('User saved successfully!');
+        }
+      });
     }
   } catch (error) {
     res.status(500).json({ error: error.message });
