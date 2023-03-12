@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import ValidCheck from './ValidCheck';
 
 export default function SignUp() {
   const navigate = useNavigate();
   const [userInfo, setUserInfo] = useState({});
-  const [authenticated, setAuthenticated] = useState(true);
+  const [isValid, setIsValid] = useState(true);
 
   const handleChange = (event) => {
     setUserInfo((prev) => ({
@@ -24,12 +25,11 @@ export default function SignUp() {
     });
 
     const json = await response.json();
-    console.log(json);
 
     if (!json) {
-      setAuthenticated(false);
+      setIsValid(false);
     } else if (json) {
-      setAuthenticated(true);
+      setIsValid(true);
       navigate(`/profile/${json}`);
     }
   }
@@ -130,9 +130,7 @@ export default function SignUp() {
           onChange={handleChange}
           required
         />
-        {!authenticated ? (
-          <p className="error">This email is already used</p>
-        ) : null}
+        <ValidCheck isValid={isValid} message={'This email is already used'} />
         <button type="submit" className="btn btn--top">
           next
         </button>
