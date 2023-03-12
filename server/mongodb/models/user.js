@@ -22,10 +22,6 @@ const userSchema = new mongoose.Schema({
   created_at: { type: Date, default: Date.now },
   totalCount: { type: Number },
   routines: [RoutineSchema],
-  // routines: {
-  //   type: [mongoose.Schema.Types.Mixed],
-  //   default: [],
-  // },
 });
 
 const User = mongoose.model('User', userSchema);

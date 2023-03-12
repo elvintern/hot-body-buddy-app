@@ -59,11 +59,9 @@ const createUser = async (req, res) => {
         pronounce,
         email,
         password,
-        // routines: [],
+        routines: [],
         totalCount: 0,
       });
-
-      console.log(user);
 
       user.save(function (err) {
         if (err) {
