@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import ShowExercises from '../components/ShowExercises';
+import ValidCheck from '../components/ValidCheck';
 
 export default function Routine() {
   const { userId } = useParams();
@@ -9,6 +10,7 @@ export default function Routine() {
   const [exercise, setExercise] = useState('');
   const [exercises, setExercises] = useState([]);
   const [newRoutine, setNewRoutine] = useState([]);
+  const [isValid, setIsValid] = useState(true);
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -21,9 +23,14 @@ export default function Routine() {
 
   function addExercise(event) {
     event.preventDefault();
-    setExercises((prev) => [...prev, exercise]);
-    console.log(exercises);
-    setExercise('');
+    if (exercise.length < 3) {
+      setIsValid(false);
+    } else {
+      setIsValid(true);
+      setExercises((prev) => [...prev, exercise]);
+      console.log(exercises);
+      setExercise('');
+    }
   }
 
   useEffect(() => {
@@ -54,6 +61,10 @@ export default function Routine() {
           placeholder="ex) Deadlift, Squat ..."
           value={exercise}
           onChange={(e) => setExercise(e.target.value)}
+        />
+        <ValidCheck
+          isValid={isValid}
+          message={'Exercise name should be more than 2 letters'}
         />
 
         {exercises.length > 0 && <ShowExercises exercises={exercises} />}

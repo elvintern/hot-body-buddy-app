@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import ValidCheck from './ValidCheck';
 
 export default function Login() {
   const navigate = useNavigate();
   const [userInfo, setUserInfo] = useState({});
-  const [authenticated, setAuthenticated] = useState(true);
+  const [isValid, setIsValid] = useState(true);
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -20,9 +21,9 @@ export default function Login() {
     const json = await response.json();
 
     if (!response.ok) {
-      setAuthenticated(false);
+      setIsValid(false);
     } else if (response.ok) {
-      setAuthenticated(true);
+      setIsValid(true);
       navigate(`/profile/${json}`);
     }
   };
@@ -37,9 +38,7 @@ export default function Login() {
   return (
     <>
       <form className="form form-login" onSubmit={handleLogin}>
-        {!authenticated ? (
-          <p className="error">Invalid email or password</p>
-        ) : null}
+        <ValidCheck isValid={isValid} message={'Invalid email or password'} />
         <label htmlFor="userEmail" className="form__label">
           user email
         </label>
