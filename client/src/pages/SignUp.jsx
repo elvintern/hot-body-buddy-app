@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import ValidCheck from './ValidCheck';
+import ValidCheck from '../components/ValidCheck';
 
 export default function SignUp() {
   const navigate = useNavigate();

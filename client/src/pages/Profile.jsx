@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import './Profile.scss';
+import fetchUserInfoById from '../utils/index.js';
 
 const Profile = () => {
   const { userId } = useParams();
@@ -8,21 +9,9 @@ const Profile = () => {
   const [userInfo, setUserInfo] = useState(null);
 
   useEffect(() => {
-    const fetchUserInfo = async () => {
-      const response = await fetch(
-        'http://localhost:9000/api/v1/user/profile',
-        {
-          method: 'POST',
-          body: JSON.stringify({ userId }),
-          headers: {
-            'content-type': 'application/json',
-          },
-        }
-      );
-      const json = await response.json();
-      setUserInfo(json);
-    };
-    fetchUserInfo();
+    fetchUserInfoById(userId).then((res) => {
+      setUserInfo(res);
+    });
   }, []);
 
   const manageRoutines = () => {
