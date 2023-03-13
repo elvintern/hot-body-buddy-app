@@ -22,7 +22,7 @@ const getUser = async (req, res) => {
       password,
     });
     if (!user) {
-      return res.status(404).json(false);
+      return res.status(401).json(false);
     }
     res.status(200).json(user.id);
   } catch (error) {
@@ -77,4 +77,31 @@ const createUser = async (req, res) => {
   }
 };
 
-export { getUsers, getUser, getUserInfo, createUser };
+// Update User's Routines
+const updateRoutines = async (req, res) => {
+  try {
+    const { userId, userRoutine } = req.body;
+
+    User.findById(userId, (err, user) => {
+      if (err) {
+        console.log(err);
+      } else {
+        // push the new routine object to the routines array
+        user.routines.push(userRoutine);
+
+        // save the updated user object
+        user.save((err, updatedUser) => {
+          if (err) {
+            console.log(err);
+          } else {
+            console.log(updatedUser);
+          }
+        });
+      }
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+export { getUsers, getUser, getUserInfo, createUser, updateRoutines };

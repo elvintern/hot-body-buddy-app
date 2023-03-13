@@ -3,22 +3,43 @@ import { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import ShowExercises from '../components/ShowExercises';
 import ValidCheck from '../components/ValidCheck';
+import fetchUserInfoById from '../utils/index';
 
 export default function Routine() {
   const { userId } = useParams();
   const [routineName, setRoutineName] = useState('');
   const [exercise, setExercise] = useState('');
   const [exercises, setExercises] = useState([]);
-  const [newRoutine, setNewRoutine] = useState([]);
+  const [routines, setRoutines] = useState([]);
   const [isValid, setIsValid] = useState(true);
 
-  function handleSubmit(event) {
+  useEffect(() => {
+    fetchUserInfoById(userId).then((res) => {
+      setRoutines(res.routines);
+    });
+  }, [routines]);
+
+  async function handleSave(event) {
     event.preventDefault();
-    const userRoutine = { routineName, exercises };
-    setNewRoutine((prev) => [...prev, userRoutine]);
-    setRoutineName('');
-    setExercise('');
-    setExercises([]);
+    try {
+      const userRoutine = { routineName, exercises, prevPerformance: [] };
+      setRoutineName('');
+      setExercise('');
+      setExercises([]);
+      const response = await fetch(
+        'http://localhost:9000/api/v1/user/routine',
+        {
+          method: 'POST',
+          body: JSON.stringify({ userId, userRoutine }),
+          headers: {
+            'content-type': 'application/json',
+          },
+        }
+      );
+      const json = await response.json();
+    } catch (error) {
+      console.log(error.message);
+    }
   }
 
   function addExercise(event) {
@@ -28,14 +49,9 @@ export default function Routine() {
     } else {
       setIsValid(true);
       setExercises((prev) => [...prev, exercise]);
-      console.log(exercises);
       setExercise('');
     }
   }
-
-  useEffect(() => {
-    // console.log(userId);
-  }, []);
 
   return (
     <>
@@ -50,6 +66,7 @@ export default function Routine() {
           placeholder="ex) Back Day, Leg Day..."
           value={routineName}
           onChange={(e) => setRoutineName(e.target.value)}
+          required
         />
         <label htmlFor="userRoutine" className="form__label">
           add your exercise
@@ -67,10 +84,12 @@ export default function Routine() {
           message={'Exercise name should be more than 2 letters'}
         />
 
+    
+
         {exercises.length > 0 && <ShowExercises exercises={exercises} />}
-        {newRoutine.length > 0 && (
+        {routines.length > 0 && (
           <div className="routines">
-            {newRoutine.map((el, index) => {
+            {routines.map((el, index) => {
               return (
                 <div className="routine" key={index}>
                   <h3 className="heading-tertiary" key={el.routineName}>
@@ -86,7 +105,7 @@ export default function Routine() {
         <button onClick={addExercise} className="btn btn-add">
           Add
         </button>
-        <button onClick={handleSubmit} className="btn btn-signup">
+        <button onClick={handleSave} className="btn btn-signup">
           save
         </button>
         <Link to={`/profile/${userId}`} className="btn btn-signup">
