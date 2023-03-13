@@ -81,24 +81,11 @@ const createUser = async (req, res) => {
 const updateRoutines = async (req, res) => {
   try {
     const { userId, userRoutine } = req.body;
-
-    User.findById(userId, (err, user) => {
-      if (err) {
-        console.log(err);
-      } else {
-        // push the new routine object to the routines array
-        user.routines.push(userRoutine);
-
-        // save the updated user object
-        user.save((err, updatedUser) => {
-          if (err) {
-            console.log(err);
-          } else {
-            console.log(updatedUser);
-          }
-        });
-      }
-    });
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { $push: { routines: userRoutine } },
+      { new: true }
+    );
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
