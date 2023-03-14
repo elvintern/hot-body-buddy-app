@@ -7,7 +7,7 @@ const PerformanceSchema = new mongoose.Schema({
 });
 
 const RoutineSchema = new mongoose.Schema({
-  routineName: String,
+  routineName: { type: String, unique: true },
   exercises: [String],
   prevPerformance: [PerformanceSchema],
 });

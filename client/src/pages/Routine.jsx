@@ -12,6 +12,7 @@ export default function Routine() {
   const [exercises, setExercises] = useState([]);
   const [routines, setRoutines] = useState([]);
   const [isValid, setIsValid] = useState(true);
+  const [isDuplicated, setisDuplicated] = useState(false);
 
   useEffect(() => {
     fetchUserInfoById(userId).then((res) => {
@@ -21,24 +22,30 @@ export default function Routine() {
 
   async function handleSave(event) {
     event.preventDefault();
-    try {
-      const userRoutine = { routineName, exercises, prevPerformance: [] };
-      setRoutineName('');
-      setExercise('');
-      setExercises([]);
-      const response = await fetch(
-        'http://localhost:9000/api/v1/user/routine',
-        {
-          method: 'POST',
-          body: JSON.stringify({ userId, userRoutine }),
-          headers: {
-            'content-type': 'application/json',
-          },
-        }
-      );
-      const json = await response.json();
-    } catch (error) {
-      console.log(error.message);
+    if (routines.map((el) => el.routineName).includes(routineName)) {
+      console.log('The Same Routine Name Already Exist!');
+      setisDuplicated(true);
+    } else {
+      try {
+        setisDuplicated(false);
+        const userRoutine = { routineName, exercises, prevPerformance: [] };
+        setRoutineName('');
+        setExercise('');
+        setExercises([]);
+        const response = await fetch(
+          'http://localhost:9000/api/v1/user/routine',
+          {
+            method: 'POST',
+            body: JSON.stringify({ userId, userRoutine }),
+            headers: {
+              'content-type': 'application/json',
+            },
+          }
+        );
+        const json = await response.json();
+      } catch (error) {
+        console.log(error.message);
+      }
     }
   }
 
@@ -56,6 +63,10 @@ export default function Routine() {
   return (
     <>
       <form className="form form-Routine">
+        <ValidCheck
+          isValid={!isDuplicated}
+          message={'The Same Routine Name Already Exist!'}
+        />
         <label htmlFor="routineName" className="form__label">
           routine name
         </label>
@@ -83,8 +94,6 @@ export default function Routine() {
           isValid={isValid}
           message={'Exercise name should be more than 2 letters'}
         />
-
-    
 
         {exercises.length > 0 && <ShowExercises exercises={exercises} />}
         {routines.length > 0 && (
