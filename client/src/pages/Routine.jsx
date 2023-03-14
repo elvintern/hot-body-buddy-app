@@ -20,6 +20,11 @@ export default function Routine() {
     });
   }, [routines]);
 
+  function handleDelete(event, id) {
+    event.preventDefault();
+    setExercises(exercises.filter((el, index) => index !== id));
+  }
+
   async function handleSave(event) {
     event.preventDefault();
     if (routines.map((el) => el.routineName).includes(routineName)) {
@@ -32,17 +37,13 @@ export default function Routine() {
         setRoutineName('');
         setExercise('');
         setExercises([]);
-        const response = await fetch(
-          'http://localhost:9000/api/v1/user/routine',
-          {
-            method: 'POST',
-            body: JSON.stringify({ userId, userRoutine }),
-            headers: {
-              'content-type': 'application/json',
-            },
-          }
-        );
-        const json = await response.json();
+        await fetch('http://localhost:9000/api/v1/user/routine', {
+          method: 'POST',
+          body: JSON.stringify({ userId, userRoutine }),
+          headers: {
+            'content-type': 'application/json',
+          },
+        });
       } catch (error) {
         console.log(error.message);
       }
@@ -95,7 +96,9 @@ export default function Routine() {
           message={'Exercise name should be more than 2 letters'}
         />
 
-        {exercises.length > 0 && <ShowExercises exercises={exercises} />}
+        {exercises.length > 0 && (
+          <ShowExercises handleDelete={handleDelete} exercises={exercises} />
+        )}
         {routines.length > 0 && (
           <div className="routines">
             {routines.map((el, index) => {
