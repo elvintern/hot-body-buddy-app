@@ -81,7 +81,7 @@ const createUser = async (req, res) => {
 const updateRoutines = async (req, res) => {
   try {
     const { userId, userRoutine } = req.body;
-    const updatedUser = await User.findByIdAndUpdate(
+    await User.findByIdAndUpdate(
       userId,
       { $push: { routines: userRoutine } },
       { new: true }
@@ -91,4 +91,36 @@ const updateRoutines = async (req, res) => {
   }
 };
 
-export { getUsers, getUser, getUserInfo, createUser, updateRoutines };
+// Delete One of User's Routines
+const deleteRoutine = async (req, res) => {
+  try {
+    const { userId, routineId } = req.body;
+    console.log(userId, routineId);
+
+    User.findByIdAndUpdate(
+      userId,
+      { $pull: { routines: { _id: routineId } } },
+      { new: true },
+      (err, user) => {
+        if (err) {
+          console.error(err);
+          // handle error
+        } else {
+          console.log(user);
+          // the updated user object, without the deleted routine
+        }
+      }
+    );
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+export {
+  getUsers,
+  getUser,
+  getUserInfo,
+  createUser,
+  updateRoutines,
+  deleteRoutine,
+};

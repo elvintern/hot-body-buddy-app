@@ -5,6 +5,7 @@ import {
   createUser,
   getUserInfo,
   updateRoutines,
+  deleteRoutine,
 } from '../controllers/userController.js';
 
 const router = express.Router();
@@ -14,5 +15,6 @@ router.post('/', getUser);
 router.post('/profile', getUserInfo);
 router.post('/sign-up', createUser);
 router.post('/routine', updateRoutines);
+router.post('/routine/delete', deleteRoutine);
 
 export default router;

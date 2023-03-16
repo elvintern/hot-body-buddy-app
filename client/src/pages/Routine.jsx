@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import ShowExercises from '../components/ShowExercises';
 import ValidCheck from '../components/ValidCheck';
-import fetchUserInfoById from '../utils/index';
+import { fetchUserInfoById, deleteUserRoutine } from '../utils/index';
 
 export default function Routine() {
   const { userId } = useParams();
@@ -23,6 +23,11 @@ export default function Routine() {
   function handleDelete(event, id) {
     event.preventDefault();
     setExercises(exercises.filter((el, index) => index !== id));
+  }
+
+  function deleteRoutine(event, id) {
+    event.preventDefault();
+    deleteUserRoutine(userId, id);
   }
 
   async function handleSave(event) {
@@ -101,12 +106,15 @@ export default function Routine() {
         )}
         {routines.length > 0 && (
           <div className="routines">
-            {routines.map((el, index) => {
+            {routines.map((el) => {
               return (
-                <div className="routine" key={index}>
+                <div className="routine" key={el._id}>
                   <h3 className="heading-tertiary" key={el.routineName}>
                     {el.routineName}
                   </h3>
+                  <button onClick={(event) => deleteRoutine(event, el._id)}>
+                    Delete
+                  </button>
                   <ShowExercises exercises={el.exercises} />
                 </div>
               );
