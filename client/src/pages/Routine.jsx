@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import ShowExercises from '../components/ShowExercises';
 import ValidCheck from '../components/ValidCheck';
@@ -12,7 +11,7 @@ export default function Routine() {
   const [exercises, setExercises] = useState([]);
   const [routines, setRoutines] = useState([]);
   const [isValid, setIsValid] = useState(true);
-  const [isDuplicated, setisDuplicated] = useState(false);
+  const [isDuplicated, setIsDuplicated] = useState(false);
 
   useEffect(() => {
     fetchUserInfoById(userId).then((res) => {
@@ -20,7 +19,7 @@ export default function Routine() {
     });
   }, [routines]);
 
-  function handleDelete(event, id) {
+  function deleteExercise(event, id) {
     event.preventDefault();
     setExercises(exercises.filter((el, index) => index !== id));
   }
@@ -32,26 +31,25 @@ export default function Routine() {
 
   async function handleSave(event) {
     event.preventDefault();
-    if (routines.map((el) => el.routineName).includes(routineName)) {
-      console.log('The Same Routine Name Already Exist!');
-      setisDuplicated(true);
-    } else {
-      try {
-        setisDuplicated(false);
-        const userRoutine = { routineName, exercises, prevPerformance: [] };
-        setRoutineName('');
-        setExercise('');
-        setExercises([]);
-        await fetch('http://localhost:9000/api/v1/user/routine', {
-          method: 'POST',
-          body: JSON.stringify({ userId, userRoutine }),
-          headers: {
-            'content-type': 'application/json',
-          },
-        });
-      } catch (error) {
-        console.log(error.message);
-      }
+    if (routines.some((routine) => routine.routineName === routineName)) {
+      setIsDuplicated(true);
+      return;
+    }
+    try {
+      const userRoutine = { routineName, exercises, prevPerformance: [] };
+      setIsDuplicated(false);
+      setRoutineName('');
+      setExercise('');
+      setExercises([]);
+      await fetch('http://localhost:9000/api/v1/user/routine', {
+        method: 'POST',
+        body: JSON.stringify({ userId, userRoutine }),
+        headers: {
+          'content-type': 'application/json',
+        },
+      });
+    } catch (error) {
+      console.log(error.message);
     }
   }
 
@@ -59,6 +57,7 @@ export default function Routine() {
     event.preventDefault();
     if (exercise.length < 3) {
       setIsValid(false);
+      return;
     } else {
       setIsValid(true);
       setExercises((prev) => [...prev, exercise]);
@@ -102,7 +101,10 @@ export default function Routine() {
         />
 
         {exercises.length > 0 && (
-          <ShowExercises handleDelete={handleDelete} exercises={exercises} />
+          <ShowExercises
+            deleteExercise={deleteExercise}
+            exercises={exercises}
+          />
         )}
         {routines.length > 0 && (
           <div className="routines">

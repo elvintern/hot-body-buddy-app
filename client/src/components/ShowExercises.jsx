@@ -7,8 +7,8 @@ export default function ShowExercises(props) {
         return (
           <li className="exercise" key={index}>
             {el}
-            {props.handleDelete && (
-              <button onClick={(event) => props.handleDelete(event, index)}>
+            {props.deleteExercise && (
+              <button onClick={(event) => props.deleteExercise(event, index)}>
                 Delete
               </button>
             )}
