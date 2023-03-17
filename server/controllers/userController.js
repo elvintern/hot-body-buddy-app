@@ -78,18 +78,46 @@ const createUser = async (req, res) => {
 };
 
 // Update User's Routines
+// const updateRoutines = async (req, res) => {
+//   try {
+//     const { userId, userRoutine } = req.body;
+//     await User.findByIdAndUpdate(
+//       userId,
+//       { $push: { routines: userRoutine } },
+//       { new: true }
+//     );
+//   } catch (error) {
+//     res.status(500).json({ error: error.message });
+//   }
+// };
+
+// Update User's Routines
 const updateRoutines = async (req, res) => {
   try {
-    const { userId, userRoutine } = req.body;
+    const { userId, newRoutines } = req.body;
     await User.findByIdAndUpdate(
       userId,
-      { $push: { routines: userRoutine } },
+      { $set: { routines: newRoutines } },
       { new: true }
     );
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
+
+// const
+// User.findOneAndUpdate(
+//   { _id: userId },
+//   { $set: { 'routines.0.routineName': 'new_routine_name', 'routines.0.exercises': ['new_exercise_1', 'new_exercise_2'] } },
+//   { new: true },
+//   (err, updatedUser) => {
+//     if (err) {
+//       console.log(err);
+//     } else {
+//       console.log(updatedUser);
+//     }
+//   }
+// );
 
 // Delete One of User's Routines
 const deleteRoutine = async (req, res) => {
