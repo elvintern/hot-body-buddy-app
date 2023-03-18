@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import ShowExercises from '../components/ShowExercises';
+import ShowRoutines from '../components/ShowRoutines';
 import ValidCheck from '../components/ValidCheck';
 import { fetchUserInfoById, deleteUserRoutine } from '../utils/index';
 
@@ -10,14 +11,16 @@ export default function Routine() {
   const [exercise, setExercise] = useState('');
   const [exercises, setExercises] = useState([]);
   const [routines, setRoutines] = useState([]);
+  const [editingRoutine, setEditingRoutine] = useState({});
   const [isValid, setIsValid] = useState(true);
+  const [isEditing, setIsEditing] = useState(false);
   const [isDuplicated, setIsDuplicated] = useState(false);
 
   useEffect(() => {
     fetchUserInfoById(userId).then((res) => {
       setRoutines(res.routines);
     });
-  }, [routines]);
+  }, [userId, addNewRoutine]);
 
   function deleteExercise(event, id) {
     event.preventDefault();
@@ -29,21 +32,29 @@ export default function Routine() {
     deleteUserRoutine(userId, id);
   }
 
-  async function handleSave(event) {
+  async function editRoutine(event, id) {
     event.preventDefault();
-    if (routines.some((routine) => routine.routineName === routineName)) {
-      setIsDuplicated(true);
-      return;
-    }
+    const newRoutine = await routines.find((routine) => routine._id === id);
+    setEditingRoutine(newRoutine);
+    setExercises(newRoutine.exercises);
+    setRoutineName(newRoutine.routineName);
+    setIsEditing(true);
+    setExercise('');
+  }
+
+  async function addNewRoutine() {
     try {
-      const userRoutine = { routineName, exercises, prevPerformance: [] };
+      const newRoutines = [
+        ...routines,
+        { routineName, exercises, prevPerformance: [] },
+      ];
       setIsDuplicated(false);
       setRoutineName('');
       setExercise('');
       setExercises([]);
       await fetch('http://localhost:9000/api/v1/user/routine', {
         method: 'POST',
-        body: JSON.stringify({ userId, userRoutine }),
+        body: JSON.stringify({ userId, newRoutines }),
         headers: {
           'content-type': 'application/json',
         },
@@ -51,6 +62,48 @@ export default function Routine() {
     } catch (error) {
       console.log(error.message);
     }
+  }
+
+  async function updateRoutine() {
+    try {
+      const newRoutine = {
+        routineName,
+        exercises,
+        prevPerformance: editingRoutine.prevPerformance,
+      };
+      setIsDuplicated(false);
+      setRoutineName('');
+      setExercise('');
+      setExercises([]);
+      await fetch('http://localhost:9000/api/v1/user/routine/update', {
+        method: 'POST',
+        body: JSON.stringify({
+          userId,
+          routineId: editingRoutine._id,
+          newRoutine,
+        }),
+        headers: {
+          'content-type': 'application/json',
+        },
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
+  async function handleSave(event) {
+    event.preventDefault();
+
+    if (routines.some((routine) => routine.routineName === routineName)) {
+      if (isEditing) {
+        updateRoutine();
+        return;
+      }
+      setIsDuplicated(true);
+      return;
+    }
+
+    addNewRoutine();
   }
 
   function addExercise(event) {
@@ -107,21 +160,12 @@ export default function Routine() {
           />
         )}
         {routines.length > 0 && (
-          <div className="routines">
-            {routines.map((el) => {
-              return (
-                <div className="routine" key={el._id}>
-                  <h3 className="heading-tertiary" key={el.routineName}>
-                    {el.routineName}
-                  </h3>
-                  <button onClick={(event) => deleteRoutine(event, el._id)}>
-                    Delete
-                  </button>
-                  <ShowExercises exercises={el.exercises} />
-                </div>
-              );
-            })}
-          </div>
+          <ShowRoutines
+            routines={routines}
+            editRoutine={editRoutine}
+            deleteRoutine={deleteRoutine}
+            isEditing={isEditing}
+          />
         )}
 
         <button onClick={addExercise} className="btn btn-add">
