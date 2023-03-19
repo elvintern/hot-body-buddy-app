@@ -113,8 +113,6 @@ const updateRoutine = async (req, res) => {
 const deleteRoutine = async (req, res) => {
   try {
     const { userId, routineId } = req.body;
-    console.log(userId, routineId);
-
     User.findByIdAndUpdate(
       userId,
       { $pull: { routines: { _id: routineId } } },

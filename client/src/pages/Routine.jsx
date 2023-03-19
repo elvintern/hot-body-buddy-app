@@ -1,30 +1,71 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useReducer } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import ShowExercises from '../components/ShowExercises';
 import ShowRoutines from '../components/ShowRoutines';
 import ValidCheck from '../components/ValidCheck';
-import { fetchUserInfoById, deleteUserRoutine } from '../utils/index';
+import {
+  fetchUserInfoById,
+  deleteUserRoutine,
+  addUserRoutine,
+  updateUserRoutine,
+} from '../utils/index';
+
+const initialState = {
+  routineName: '',
+  exercise: '',
+  exercises: [],
+  routines: [],
+  editingRoutine: {},
+  isValid: true,
+  isEditing: false,
+  isDuplicated: false,
+};
+
+function reducer(state, action) {
+  switch (action.type) {
+    case 'setRoutineName':
+      return { ...state, routineName: action.payload };
+    case 'setExercise':
+      return { ...state, exercise: action.payload };
+    case 'setExercises':
+      return { ...state, exercises: action.payload };
+    case 'addExercises':
+      return { ...state, exercises: [...state.exercises, action.payload] };
+    case 'setRoutines':
+      return { ...state, routines: action.payload };
+    case 'setEditingRoutine':
+      return { ...state, editingRoutine: action.payload };
+    case 'setIsValid':
+      return { ...state, isValid: action.payload };
+    case 'setIsEditing':
+      return { ...state, isEditing: action.payload };
+    case 'setIsDuplicated':
+      return { ...state, isDuplicated: action.payload };
+    case 'deleteExercise':
+      return {
+        ...state,
+        exercises: state.exercises.filter(
+          (el, index) => index !== action.payload
+        ),
+      };
+    default:
+      throw new Error();
+  }
+}
 
 export default function Routine() {
   const { userId } = useParams();
-  const [routineName, setRoutineName] = useState('');
-  const [exercise, setExercise] = useState('');
-  const [exercises, setExercises] = useState([]);
-  const [routines, setRoutines] = useState([]);
-  const [editingRoutine, setEditingRoutine] = useState({});
-  const [isValid, setIsValid] = useState(true);
-  const [isEditing, setIsEditing] = useState(false);
-  const [isDuplicated, setIsDuplicated] = useState(false);
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
     fetchUserInfoById(userId).then((res) => {
-      setRoutines(res.routines);
+      dispatch({ type: 'setRoutines', payload: res.routines });
     });
-  }, [userId, addNewRoutine]);
+  }, [userId, addExercise]);
 
   function deleteExercise(event, id) {
     event.preventDefault();
-    setExercises(exercises.filter((el, index) => index !== id));
+    dispatch({ type: 'deleteExercise', payload: id });
   }
 
   function deleteRoutine(event, id) {
@@ -34,31 +75,35 @@ export default function Routine() {
 
   async function editRoutine(event, id) {
     event.preventDefault();
-    const newRoutine = await routines.find((routine) => routine._id === id);
-    setEditingRoutine(newRoutine);
-    setExercises(newRoutine.exercises);
-    setRoutineName(newRoutine.routineName);
-    setIsEditing(true);
-    setExercise('');
+    const newRoutine = await state.routines.find(
+      (routine) => routine._id === id
+    );
+    dispatch({ type: 'setEditingRoutine', payload: newRoutine });
+    dispatch({ type: 'setExercises', payload: newRoutine.exercises });
+    dispatch({ type: 'setRoutineName', payload: newRoutine.routineName });
+    dispatch({ type: 'setIsEditing', payload: true });
+    dispatch({ type: 'setExercise', payload: '' });
+  }
+
+  function resetInput() {
+    dispatch({ type: 'setIsDuplicated', payload: false });
+    dispatch({ type: 'setRoutineName', payload: '' });
+    dispatch({ type: 'setExercise', payload: '' });
+    dispatch({ type: 'setExercises', payload: [] });
   }
 
   async function addNewRoutine() {
     try {
       const newRoutines = [
-        ...routines,
-        { routineName, exercises, prevPerformance: [] },
-      ];
-      setIsDuplicated(false);
-      setRoutineName('');
-      setExercise('');
-      setExercises([]);
-      await fetch('http://localhost:9000/api/v1/user/routine', {
-        method: 'POST',
-        body: JSON.stringify({ userId, newRoutines }),
-        headers: {
-          'content-type': 'application/json',
+        ...state.routines,
+        {
+          routineName: state.routineName,
+          exercises: state.exercises,
+          prevPerformance: [],
         },
-      });
+      ];
+      resetInput();
+      addUserRoutine(userId, newRoutines);
     } catch (error) {
       console.log(error.message);
     }
@@ -67,25 +112,12 @@ export default function Routine() {
   async function updateRoutine() {
     try {
       const newRoutine = {
-        routineName,
-        exercises,
-        prevPerformance: editingRoutine.prevPerformance,
+        routineName: state.routineName,
+        exercises: state.exercises,
+        prevPerformance: state.editingRoutine.prevPerformance,
       };
-      setIsDuplicated(false);
-      setRoutineName('');
-      setExercise('');
-      setExercises([]);
-      await fetch('http://localhost:9000/api/v1/user/routine/update', {
-        method: 'POST',
-        body: JSON.stringify({
-          userId,
-          routineId: editingRoutine._id,
-          newRoutine,
-        }),
-        headers: {
-          'content-type': 'application/json',
-        },
-      });
+      await updateUserRoutine(userId, state.editingRoutine._id, newRoutine);
+      resetInput();
     } catch (error) {
       console.log(error.message);
     }
@@ -93,13 +125,17 @@ export default function Routine() {
 
   async function handleSave(event) {
     event.preventDefault();
-
-    if (routines.some((routine) => routine.routineName === routineName)) {
-      if (isEditing) {
+    console.log(state.editingRoutine);
+    if (
+      state.routines.some(
+        (routine) => routine.routineName === state.routineName
+      )
+    ) {
+      if (state.isEditing) {
         updateRoutine();
         return;
       }
-      setIsDuplicated(true);
+      dispatch({ type: 'setIsDuplicated', payload: true });
       return;
     }
 
@@ -108,13 +144,13 @@ export default function Routine() {
 
   function addExercise(event) {
     event.preventDefault();
-    if (exercise.length < 3) {
-      setIsValid(false);
+    if (state.exercise.length < 3) {
+      dispatch({ type: 'setIsValid', payload: false });
       return;
     } else {
-      setIsValid(true);
-      setExercises((prev) => [...prev, exercise]);
-      setExercise('');
+      dispatch({ type: 'setIsValid', payload: true });
+      dispatch({ type: 'addExercises', payload: state.exercise });
+      dispatch({ type: 'setExercise', payload: '' });
     }
   }
 
@@ -122,7 +158,7 @@ export default function Routine() {
     <>
       <form className="form form-Routine">
         <ValidCheck
-          isValid={!isDuplicated}
+          isValid={!state.isDuplicated}
           message={'The Same Routine Name Already Exist!'}
         />
         <label htmlFor="routineName" className="form__label">
@@ -133,8 +169,10 @@ export default function Routine() {
           name="routineName"
           className="form__input"
           placeholder="ex) Back Day, Leg Day..."
-          value={routineName}
-          onChange={(e) => setRoutineName(e.target.value)}
+          value={state.routineName}
+          onChange={(e) =>
+            dispatch({ type: 'setRoutineName', payload: e.target.value })
+          }
           required
         />
         <label htmlFor="userRoutine" className="form__label">
@@ -145,33 +183,35 @@ export default function Routine() {
           name="userRoutine"
           className="form__input"
           placeholder="ex) Deadlift, Squat ..."
-          value={exercise}
-          onChange={(e) => setExercise(e.target.value)}
+          value={state.exercise}
+          onChange={(e) =>
+            dispatch({ type: 'setExercise', payload: e.target.value })
+          }
         />
         <ValidCheck
-          isValid={isValid}
+          isValid={state.isValid}
           message={'Exercise name should be more than 2 letters'}
         />
 
-        {exercises.length > 0 && (
+        {state.exercises.length > 0 && (
           <ShowExercises
             deleteExercise={deleteExercise}
-            exercises={exercises}
+            exercises={state.exercises}
           />
         )}
-        {routines.length > 0 && (
+        {state.routines.length > 0 && (
           <ShowRoutines
-            routines={routines}
+            routines={state.routines}
             editRoutine={editRoutine}
             deleteRoutine={deleteRoutine}
-            isEditing={isEditing}
+            isEditing={state.isEditing}
           />
         )}
 
-        <button onClick={addExercise} className="btn btn-add">
+        <button onClick={(e) => addExercise(e)} className="btn btn-add">
           Add
         </button>
-        <button onClick={handleSave} className="btn btn-signup">
+        <button onClick={(e) => handleSave(e)} className="btn btn-signup">
           save
         </button>
         <Link to={`/profile/${userId}`} className="btn btn-signup">
