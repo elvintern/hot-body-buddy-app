@@ -19,6 +19,7 @@ const initialState = {
   isValid: true,
   isEditing: false,
   isDuplicated: false,
+  editingRoutineId: null,
 };
 
 function reducer(state, action) {
@@ -39,6 +40,8 @@ function reducer(state, action) {
       return { ...state, isValid: action.payload };
     case 'setIsEditing':
       return { ...state, isEditing: action.payload };
+    case 'setEditingRoutineId':
+      return { ...state, editingRoutineId: action.payload };
     case 'setIsDuplicated':
       return { ...state, isDuplicated: action.payload };
     case 'deleteExercise':
@@ -83,6 +86,7 @@ export default function Routine() {
     dispatch({ type: 'setRoutineName', payload: newRoutine.routineName });
     dispatch({ type: 'setIsEditing', payload: true });
     dispatch({ type: 'setExercise', payload: '' });
+    dispatch({ type: 'setEditingRoutineId', payload: id });
   }
 
   function resetInput() {
@@ -125,7 +129,6 @@ export default function Routine() {
 
   async function handleSave(event) {
     event.preventDefault();
-    console.log(state.editingRoutine);
     if (
       state.routines.some(
         (routine) => routine.routineName === state.routineName
@@ -205,6 +208,8 @@ export default function Routine() {
             editRoutine={editRoutine}
             deleteRoutine={deleteRoutine}
             isEditing={state.isEditing}
+            editingRoutineId={state.editingRoutineId}
+            handleSave={handleSave}
           />
         )}
 
