@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import ValidCheck from '../components/ValidCheck';
 
@@ -6,6 +6,11 @@ export default function SignUp() {
   const navigate = useNavigate();
   const [userInfo, setUserInfo] = useState({});
   const [isValid, setIsValid] = useState(true);
+  const inputRef = useRef();
+
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
 
   const handleChange = (event) => {
     setUserInfo((prev) => ({
@@ -41,6 +46,7 @@ export default function SignUp() {
           first name
         </label>
         <input
+          ref={inputRef}
           type="text"
           name="firstName"
           className="form__input"

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import ValidCheck from './ValidCheck';
 
@@ -6,6 +6,11 @@ export default function Login() {
   const navigate = useNavigate();
   const [userInfo, setUserInfo] = useState({});
   const [isValid, setIsValid] = useState(true);
+  const inputRef = useRef();
+
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -43,6 +48,7 @@ export default function Login() {
           user email
         </label>
         <input
+          ref={inputRef}
           onChange={handleChange}
           type="email"
           name="userEmail"
