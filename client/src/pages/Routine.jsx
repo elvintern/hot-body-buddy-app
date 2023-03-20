@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer } from 'react';
+import React, { useEffect, useReducer, useRef } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import ShowExercises from '../components/ShowExercises';
 import ShowRoutines from '../components/ShowRoutines';
@@ -35,13 +35,18 @@ function reducer(state, action) {
     case 'setRoutines':
       return { ...state, routines: action.payload };
     case 'setEditingRoutine':
-      return { ...state, editingRoutine: action.payload };
+      return {
+        ...state,
+        editingRoutine: action.payload,
+        exercises: action.payload.exercises,
+        routineName: action.payload.routineName,
+        isEditing: true,
+        editingRoutineId: action.payload._id,
+      };
     case 'setIsValid':
       return { ...state, isValid: action.payload };
     case 'setIsEditing':
       return { ...state, isEditing: action.payload };
-    case 'setEditingRoutineId':
-      return { ...state, editingRoutineId: action.payload };
     case 'setIsDuplicated':
       return { ...state, isDuplicated: action.payload };
     case 'deleteExercise':
@@ -59,12 +64,17 @@ function reducer(state, action) {
 export default function Routine() {
   const { userId } = useParams();
   const [state, dispatch] = useReducer(reducer, initialState);
+  const inputRef = useRef();
 
   useEffect(() => {
     fetchUserInfoById(userId).then((res) => {
       dispatch({ type: 'setRoutines', payload: res.routines });
     });
-  }, [userId, addExercise]);
+  }, [userId, state.routines, state.exercises, state.editingRoutine]);
+
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
 
   function deleteExercise(event, id) {
     event.preventDefault();
@@ -76,17 +86,10 @@ export default function Routine() {
     deleteUserRoutine(userId, id);
   }
 
-  async function editRoutine(event, id) {
+  function editRoutine(event, id) {
     event.preventDefault();
-    const newRoutine = await state.routines.find(
-      (routine) => routine._id === id
-    );
+    const newRoutine = state.routines.find((routine) => routine._id === id);
     dispatch({ type: 'setEditingRoutine', payload: newRoutine });
-    dispatch({ type: 'setExercises', payload: newRoutine.exercises });
-    dispatch({ type: 'setRoutineName', payload: newRoutine.routineName });
-    dispatch({ type: 'setIsEditing', payload: true });
-    dispatch({ type: 'setExercise', payload: '' });
-    dispatch({ type: 'setEditingRoutineId', payload: id });
   }
 
   function resetInput() {
@@ -96,21 +99,13 @@ export default function Routine() {
     dispatch({ type: 'setExercises', payload: [] });
   }
 
-  async function addNewRoutine() {
-    try {
-      const newRoutines = [
-        ...state.routines,
-        {
-          routineName: state.routineName,
-          exercises: state.exercises,
-          prevPerformance: [],
-        },
-      ];
-      resetInput();
-      addUserRoutine(userId, newRoutines);
-    } catch (error) {
-      console.log(error.message);
-    }
+  function addNewRoutine() {
+    const newRoutine = {
+      routineName: state.routineName,
+      exercises: state.exercises,
+      prevPerformance: [],
+    };
+    addUserRoutine(userId, [...state.routines, newRoutine]);
   }
 
   async function updateRoutine() {
@@ -127,7 +122,7 @@ export default function Routine() {
     }
   }
 
-  async function handleSave(event) {
+  function handleSave(event) {
     event.preventDefault();
     if (
       state.routines.some(
@@ -136,6 +131,7 @@ export default function Routine() {
     ) {
       if (state.isEditing) {
         updateRoutine();
+        resetInput();
         return;
       }
       dispatch({ type: 'setIsDuplicated', payload: true });
@@ -143,6 +139,7 @@ export default function Routine() {
     }
 
     addNewRoutine();
+    resetInput();
   }
 
   function addExercise(event) {
@@ -168,6 +165,7 @@ export default function Routine() {
           routine name
         </label>
         <input
+          ref={inputRef}
           type="text"
           name="routineName"
           className="form__input"
