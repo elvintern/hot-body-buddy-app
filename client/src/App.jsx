@@ -7,6 +7,7 @@ import SignUp from './pages/SignUp';
 import Profile from './pages/Profile';
 import Routine from './pages/Routine';
 import NotFound from './pages/NotFound';
+import Workout from './pages/Workout';
 
 import '../src/styles/main.scss';
 
@@ -23,6 +24,7 @@ function App() {
             <Route path="profile/:userId">
               <Route index element={<Profile />} />
               <Route path="routine" element={<Routine />} />
+              <Route path="workout/:workoutId" element={<Workout />} />
             </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>
