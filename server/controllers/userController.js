@@ -77,6 +77,25 @@ const createUser = async (req, res) => {
   }
 };
 
+// Fetch User's Routine
+const fetchRoutine = async (req, res) => {
+  try {
+    const { userId, routineId } = req.body;
+    const routineInfo = await User.findOne(
+      { _id: userId, 'routines._id': routineId },
+      { 'routines.$': 1 }
+    );
+
+    if (!routineInfo) {
+      throw new Error(`Routine with ID ${routineId} not found`);
+    }
+    res.status(200).json(routineInfo.routines[0]);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: error.message });
+  }
+};
+
 // Update User's Routines
 const updateRoutines = async (req, res) => {
   try {
@@ -137,6 +156,7 @@ export {
   getUser,
   getUserInfo,
   createUser,
+  fetchRoutine,
   updateRoutines,
   updateRoutine,
   deleteRoutine,

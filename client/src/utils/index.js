@@ -10,6 +10,19 @@ const fetchUserInfoById = async (userId) => {
   return json;
 };
 
+const fetchRoutineById = async (userId, routineId) => {
+  const response = await fetch('http://localhost:9000/api/v1/user/workout', {
+    method: 'POST',
+    body: JSON.stringify({ userId, routineId }),
+    headers: {
+      'content-type': 'application/json',
+    },
+  });
+
+  const json = await response.json();
+  return json;
+};
+
 const deleteUserRoutine = async (userId, routineId) => {
   const response = await fetch(
     'http://localhost:9000/api/v1/user/routine/delete',
@@ -49,9 +62,10 @@ const updateUserRoutine = (userId, editingRoutineId, newRoutine) => {
   });
 };
 
-export default fetchUserInfoById;
+// export default fetchUserInfoById;
 export {
   fetchUserInfoById,
+  fetchRoutineById,
   deleteUserRoutine,
   addUserRoutine,
   updateUserRoutine,

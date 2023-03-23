@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import './Profile.scss';
-import fetchUserInfoById from '../utils/index.js';
+import { fetchUserInfoById } from '../utils/index.js';
 import ValidCheck from '../components/ValidCheck';
 
 const Profile = () => {
