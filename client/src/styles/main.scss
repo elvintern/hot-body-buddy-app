@@ -95,3 +95,19 @@ body {
     margin-top: 5rem;
   }
 }
+
+.heading-primary {
+  font-size: 3rem;
+
+  &--quote {
+    font-family: 'PT Serif', 'Lato';
+    text-transform: capitalize;
+    text-align: center;
+    color: v.$color-white;
+    margin-top: 3rem;
+  }
+}
+
+.heading-secondary {
+  font-size: 2.5rem;
+}
