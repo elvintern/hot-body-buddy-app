@@ -1,19 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 export default function Set(props) {
   const [record, setRecord] = useState({
     exercise: props.exercise,
-    reps: null,
-    weight: null,
+    sets: props.sets,
+    reps: 0,
+    weight: 0,
   });
+
+  useEffect(() => {
+    const selectedRecord = props.records.find((el) => el.sets === record.sets);
+    if (selectedRecord) {
+      const newRecords = props.records.filter((el) => el !== selectedRecord);
+      props.setRecords([...newRecords, record]);
+    } else {
+      props.setRecords((prev) => {
+        return [...prev, record];
+      });
+    }
+  }, [record]);
 
   const handleChange = (e) => {
     setRecord((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-    console.log(record);
   };
 
   const addSet = () => {
     props.setCount((prev) => prev + 1);
+  };
+
+  const deleteSet = () => {
+    props.setCount((prev) => prev - 1);
   };
 
   return (
@@ -39,10 +55,12 @@ export default function Set(props) {
         id="weight"
         className="workout-form__input"
       />
-      <button className="btn" onClick={addSet}>
+      <button onClick={addSet} className="btn btn--set">
         +
       </button>
-      <button className="btn">-</button>
+      <button onClick={deleteSet} className="btn btn--set">
+        -
+      </button>
     </li>
   );
 }
