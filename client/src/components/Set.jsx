@@ -53,6 +53,7 @@ export default function Set(props) {
         type="number"
         name="weight"
         id="weight"
+        placeholder="kgs"
         className="workout-form__input"
       />
       <button onClick={addSet} className="btn btn--set">
