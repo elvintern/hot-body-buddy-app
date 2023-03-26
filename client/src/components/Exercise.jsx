@@ -7,13 +7,19 @@ export default function Exercise(props) {
     reps: [],
     weight: [],
   });
+  const [records, setRecords] = useState([]);
   const [count, setCount] = useState(1);
+
+  const setProps = {
+    setCount: setCount,
+    records: records,
+    setRecords: setRecords,
+    exercise: props.exercise,
+  };
   const renderComponents = () => {
     const sets = [];
     for (let i = 0; i < count; i++) {
-      sets.push(
-        <Set key={i} setCount={setCount} exercise={props.exercise} sets={i} />
-      );
+      sets.push(<Set key={i} sets={i + 1} {...setProps} />);
     }
     return sets;
   };

@@ -13,7 +13,6 @@ export default function Workout() {
       try {
         const res = await fetchRoutineById(userId, workoutId);
         setRoutine(res);
-        console.log(res);
       } catch (err) {
         console.error(err);
       }
