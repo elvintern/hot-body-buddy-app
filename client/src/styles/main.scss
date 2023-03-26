@@ -59,6 +59,11 @@ body {
   &--bottom {
     margin-top: 1rem;
   }
+
+  &--set {
+    display: inline-block;
+    width: 5rem;
+  }
 }
 
 .form {
