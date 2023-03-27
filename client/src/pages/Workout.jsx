@@ -29,7 +29,7 @@ export default function Workout() {
   return (
     <div className="workout">
       {isFinished ? (
-        <WorkoutResult routine={routine} />
+        <WorkoutResult routine={routine} performance={performance} />
       ) : (
         routine && (
           <>
