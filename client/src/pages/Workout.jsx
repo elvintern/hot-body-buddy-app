@@ -26,10 +26,19 @@ export default function Workout() {
     setisFinished(true);
   };
 
+  const finishReview = () => {
+    console.log(performance);
+  };
+
   return (
     <div className="workout">
       {isFinished ? (
-        <WorkoutResult routine={routine} performance={performance} />
+        <>
+          <WorkoutResult routine={routine} performance={performance} />
+          <button onClick={finishReview} className="btn">
+            End Review
+          </button>
+        </>
       ) : (
         routine && (
           <>
