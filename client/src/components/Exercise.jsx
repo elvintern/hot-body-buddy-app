@@ -19,7 +19,6 @@ export default function Exercise(props) {
   };
 
   const handleClick = () => {
-    console.log(records);
     setIsDone(true);
     const sortedRecords = records.sort((a, b) => a.sets - b.sets);
     const reps = sortedRecords.map((record) => record.reps);
