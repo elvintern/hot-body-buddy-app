@@ -6,6 +6,7 @@ import {
   getUserInfo,
   updateRoutines,
   updateRoutine,
+  updatePerformance,
   deleteRoutine,
   fetchRoutine,
 } from '../controllers/userController.js';
@@ -20,5 +21,6 @@ router.post('/sign-up', createUser);
 router.post('/routine', updateRoutines);
 router.post('/routine/update', updateRoutine);
 router.post('/routine/delete', deleteRoutine);
+router.post('/routine/result', updatePerformance);
 
 export default router;

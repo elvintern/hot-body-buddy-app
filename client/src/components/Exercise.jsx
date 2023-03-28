@@ -33,7 +33,6 @@ export default function Exercise(props) {
   };
 
   useEffect(() => {
-    console.log(props.performance.performance);
     if (isDone) {
       const selectedPerformance = props.performance.find(
         (el) => el.exercise === workoutResult.exercise

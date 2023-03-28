@@ -62,6 +62,20 @@ const updateUserRoutine = (userId, editingRoutineId, newRoutine) => {
   });
 };
 
+const updateUserPerformance = (userId, routineId, newPerformance) => {
+  fetch('http://localhost:9000/api/v1/user/routine/result', {
+    method: 'POST',
+    body: JSON.stringify({
+      userId,
+      routineId,
+      newPerformance,
+    }),
+    headers: {
+      'content-type': 'application/json',
+    },
+  });
+};
+
 // export default fetchUserInfoById;
 export {
   fetchUserInfoById,
@@ -69,4 +83,5 @@ export {
   deleteUserRoutine,
   addUserRoutine,
   updateUserRoutine,
+  updateUserPerformance,
 };

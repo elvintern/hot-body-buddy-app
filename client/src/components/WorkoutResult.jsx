@@ -4,7 +4,7 @@ export default function WorkoutResult({ routine, performance }) {
   const SetList = ({ id, reps, weight }) => {
     return reps.map((rep, i) => (
       <li className="set" key={`${id}-${i}`}>
-        {i + 1} set {rep} reps {weight[i]} weight
+        {i + 1} set {rep} reps {weight[i]} kgs
       </li>
     ));
   };

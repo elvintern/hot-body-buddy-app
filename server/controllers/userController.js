@@ -128,6 +128,24 @@ const updateRoutine = async (req, res) => {
   }
 };
 
+// Update User's Previous Performance
+const updatePerformance = async (req, res) => {
+  try {
+    const { userId, routineId, newPerformance } = req.body;
+    const updatedUser = await User.findOneAndUpdate(
+      { _id: userId, 'routines._id': routineId },
+      { $set: { 'routines.$.prevPerformance': newPerformance } },
+      { new: true }
+    );
+    if (!updatedUser) {
+      return res.status(404).json({ error: 'Routine not found' });
+    }
+    res.json(updatedUser);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
 // Delete One of User's Routines
 const deleteRoutine = async (req, res) => {
   try {
@@ -159,5 +177,6 @@ export {
   fetchRoutine,
   updateRoutines,
   updateRoutine,
+  updatePerformance,
   deleteRoutine,
 };

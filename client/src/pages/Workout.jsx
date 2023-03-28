@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { fetchRoutineById } from '../utils/index.js';
+import { fetchRoutineById, updateUserPerformance } from '../utils/index.js';
 import Exercise from '../components/Exercise.jsx';
 import WorkoutResult from '../components/WorkoutResult.jsx';
 
@@ -27,7 +27,7 @@ export default function Workout() {
   };
 
   const finishReview = () => {
-    console.log(performance);
+    updateUserPerformance(userId, routine._id, performance);
   };
 
   return (
