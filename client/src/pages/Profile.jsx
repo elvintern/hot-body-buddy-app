@@ -21,7 +21,7 @@ const Profile = () => {
       }
     }
     getUserInfo();
-  }, [userId]);
+  }, [userId, userInfo]);
 
   const startWorkOut = () => {
     const Routine = userInfo.routines.find(

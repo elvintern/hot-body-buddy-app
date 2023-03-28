@@ -31,7 +31,7 @@ export default function Workout() {
     setisFinished(true);
   };
 
-  const finishReview = async () => {
+  const finishReview = () => {
     updateUserPerformance(userId, routine._id, performance);
     updateTotalCount(userId);
     navigate(`/profile/${userId}`);
