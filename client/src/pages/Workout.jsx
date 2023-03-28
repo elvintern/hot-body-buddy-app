@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { fetchRoutineById, updateUserPerformance } from '../utils/index.js';
+import { useNavigate, useParams } from 'react-router-dom';
+import {
+  fetchRoutineById,
+  updateUserPerformance,
+  updateTotalCount,
+} from '../utils/index.js';
 import Exercise from '../components/Exercise.jsx';
 import WorkoutResult from '../components/WorkoutResult.jsx';
 
@@ -9,6 +13,7 @@ export default function Workout() {
   const [routine, setRoutine] = useState(null);
   const [performance, setPerformance] = useState([]);
   const [isFinished, setisFinished] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function getRoutine() {
@@ -26,8 +31,10 @@ export default function Workout() {
     setisFinished(true);
   };
 
-  const finishReview = () => {
+  const finishReview = async () => {
     updateUserPerformance(userId, routine._id, performance);
+    updateTotalCount(userId);
+    navigate(`/profile/${userId}`);
   };
 
   return (

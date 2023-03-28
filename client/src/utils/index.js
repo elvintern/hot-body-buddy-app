@@ -10,6 +10,16 @@ const fetchUserInfoById = async (userId) => {
   return json;
 };
 
+const updateTotalCount = (userId) => {
+  fetch('http://localhost:9000/api/v1/user/profile/update', {
+    method: 'POST',
+    body: JSON.stringify({ userId }),
+    headers: {
+      'content-type': 'application/json',
+    },
+  });
+};
+
 const fetchRoutineById = async (userId, routineId) => {
   const response = await fetch('http://localhost:9000/api/v1/user/workout', {
     method: 'POST',
@@ -84,4 +94,5 @@ export {
   addUserRoutine,
   updateUserRoutine,
   updateUserPerformance,
+  updateTotalCount,
 };

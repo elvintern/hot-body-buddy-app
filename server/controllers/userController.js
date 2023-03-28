@@ -169,6 +169,22 @@ const deleteRoutine = async (req, res) => {
   }
 };
 
+const increaseTotalCount = async (req, res) => {
+  try {
+    const { userId } = req.body;
+    const user = await User.findById(userId);
+    if (!user) {
+      console.log('User not found');
+      return;
+    }
+    user.totalCount += 1;
+    await user.save();
+    console.log('Total count updated successfully');
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
 export {
   getUsers,
   getUser,
@@ -179,4 +195,5 @@ export {
   updateRoutine,
   updatePerformance,
   deleteRoutine,
+  increaseTotalCount,
 };

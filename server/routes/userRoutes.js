@@ -9,6 +9,7 @@ import {
   updatePerformance,
   deleteRoutine,
   fetchRoutine,
+  increaseTotalCount,
 } from '../controllers/userController.js';
 
 const router = express.Router();
@@ -16,6 +17,7 @@ const router = express.Router();
 router.get('/', getUsers);
 router.post('/', getUser);
 router.post('/profile', getUserInfo);
+router.post('/profile/update', increaseTotalCount);
 router.post('/workout', fetchRoutine);
 router.post('/sign-up', createUser);
 router.post('/routine', updateRoutines);
