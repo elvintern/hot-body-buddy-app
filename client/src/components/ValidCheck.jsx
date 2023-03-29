@@ -1,7 +1,7 @@
 import React from 'react';
 
-export default function ValidCheck(props) {
-  const { isValid, message } = props;
+const ValidCheck = ({ isValid, message }) => {
+  return <>{!isValid && <p className="error">{message}</p>}</>;
+};
 
-  return <>{!isValid ? <p className="error">{message}</p> : null}</>;
-}
+export default ValidCheck;
