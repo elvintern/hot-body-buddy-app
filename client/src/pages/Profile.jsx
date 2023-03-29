@@ -24,15 +24,16 @@ const Profile = () => {
   }, [userId, userInfo]);
 
   const startWorkOut = () => {
-    const Routine = userInfo.routines.find(
+    const routineId = userInfo.routines.find(
       (routine) => routine.routineName === selectedRoutine
-    );
+    )._id;
 
-    if (selectedRoutine) {
-      navigate(`workout/${Routine._id}`);
-    } else {
+    if (!routineId) {
       setIsValid(false);
+      return;
     }
+
+    navigate(`workout/${routineId}`);
   };
 
   return (
@@ -45,7 +46,7 @@ const Profile = () => {
             <p className="profile__welcome-msg">welcome {userInfo.firstName}</p>
             <p className="profile__report-times">
               you have been to the gym {userInfo.totalCount} time
-              {userInfo.totalCount > 1 && `s`} since{' '}
+              {userInfo.totalCount > 1 ? 's' : ''} since{' '}
               {userInfo.created_at.substring(0, 10)}
             </p>
             <p className="profile__user-goal">your goal: {userInfo.goal}</p>
@@ -57,28 +58,32 @@ const Profile = () => {
             value={selectedRoutine}
             onChange={(e) => setSelectedRoutine(e.target.value)}
           >
-            <option defaultChecked>choose your workout routine</option>
+            <option disabled value="">
+              choose your workout routine
+            </option>
             {userInfo.routines.length > 0 &&
               userInfo.routines.map((routine) => {
                 return <option key={routine._id}>{routine.routineName}</option>;
               })}
           </select>
+          {!isValid && (
+            <ValidCheck
+              isValid={isValid}
+              message={'You have to choose your routine!'}
+            />
+          )}
+
+          <button className="btn btn--top" onClick={startWorkOut}>
+            start work out
+          </button>
+          <button
+            className="btn btn--bottom"
+            onClick={() => navigate(`routine`)}
+          >
+            manage routines
+          </button>
         </>
       )}
-
-      {!isValid && (
-        <ValidCheck
-          isValid={isValid}
-          message={'You have to choose your routine!'}
-        />
-      )}
-
-      <button className="btn btn--top" onClick={startWorkOut}>
-        start work out
-      </button>
-      <button className="btn btn--bottom" onClick={() => navigate(`routine`)}>
-        manage routines
-      </button>
     </>
   );
 };
