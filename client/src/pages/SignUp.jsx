@@ -1,16 +1,13 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import ValidCheck from '../components/ValidCheck';
+import useFocusInput from '../components/FocusInput';
 
 export default function SignUp() {
   const navigate = useNavigate();
   const [userInfo, setUserInfo] = useState({});
   const [isValid, setIsValid] = useState(true);
-  const inputRef = useRef();
-
-  useEffect(() => {
-    inputRef.current.focus();
-  }, []);
+  const inputRef = useFocusInput();
 
   const handleChange = (event) => {
     setUserInfo((prev) => ({
