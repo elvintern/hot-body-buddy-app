@@ -5,18 +5,26 @@ import useFocusInput from '../components/FocusInput';
 
 export default function SignUp() {
   const navigate = useNavigate();
-  const [userInfo, setUserInfo] = useState({});
+  const [userInfo, setUserInfo] = useState({
+    firstName: '',
+    lastName: '',
+    goal: '',
+    pronounce: '',
+    email: '',
+    password: '',
+  });
   const [isValid, setIsValid] = useState(true);
   const inputRef = useFocusInput();
 
   const handleChange = (event) => {
-    setUserInfo((prev) => ({
-      ...prev,
-      [event.target.name]: event.target.value,
+    const { name, value } = event.target;
+    setUserInfo((prevUserInfo) => ({
+      ...prevUserInfo,
+      [name]: value,
     }));
   };
 
-  async function handleSubmit(event) {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const response = await fetch('http://localhost:9000/api/v1/user/sign-up', {
       method: 'POST',
@@ -26,19 +34,19 @@ export default function SignUp() {
       },
     });
 
-    const json = await response.json();
+    const data = await response.json();
 
-    if (!json) {
-      setIsValid(false);
-    } else if (json) {
+    if (data) {
       setIsValid(true);
-      navigate(`/profile/${json}`);
+      navigate(`/profile/${data}`);
+    } else {
+      setIsValid(false);
     }
-  }
+  };
 
   return (
-    <>
-      <form className="form form-signup" onSubmit={handleSubmit}>
+    <form className="form form-signup" onSubmit={handleSubmit}>
+      <div className="form__container">
         <label htmlFor="firstName" className="form__label">
           first name
         </label>
@@ -50,6 +58,8 @@ export default function SignUp() {
           onChange={handleChange}
           required
         />
+      </div>
+      <div className="form__container">
         <label htmlFor="lastName" className="form__label">
           last name
         </label>
@@ -60,6 +70,8 @@ export default function SignUp() {
           onChange={handleChange}
           required
         />
+      </div>
+      <div className="form__container">
         <label htmlFor="goal" className="form__label">
           tell me your goal
         </label>
@@ -71,6 +83,8 @@ export default function SignUp() {
           onChange={handleChange}
           required
         />
+      </div>
+      <div className="form__container">
         <label htmlFor="pronounce" className="form__label">
           pronounce
         </label>
@@ -112,6 +126,9 @@ export default function SignUp() {
             />
           </div>
         </div>
+      </div>
+      <ValidCheck isValid={isValid} message={'This email is already used'} />
+      <div className="form__container">
         <label htmlFor="email" className="form__label">
           email
         </label>
@@ -122,6 +139,8 @@ export default function SignUp() {
           onChange={handleChange}
           required
         />
+      </div>
+      <div className="form__container">
         <label htmlFor="password" className="form__label">
           password
         </label>
@@ -133,14 +152,15 @@ export default function SignUp() {
           onChange={handleChange}
           required
         />
-        <ValidCheck isValid={isValid} message={'This email is already used'} />
+      </div>
+      <div className="form__container">
         <button type="submit" className="btn btn--top">
           next
         </button>
         <Link to="/" className="btn">
           sign in
         </Link>
-      </form>
-    </>
+      </div>
+    </form>
   );
 }
