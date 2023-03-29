@@ -64,7 +64,7 @@ function reducer(state, action) {
 export default function Routine() {
   const { userId } = useParams();
   const [state, dispatch] = useReducer(reducer, initialState);
-  const inputRef = useRef();
+  const inputRef = useRef(null);
 
   useEffect(() => {
     fetchUserInfoById(userId).then((res) => {
@@ -154,6 +154,12 @@ export default function Routine() {
     }
   }
 
+  const handleKeyPress = (event) => {
+    if (event.keyCode === 13) {
+      addExercise(event);
+    }
+  };
+
   return (
     <>
       <form className="form form-Routine">
@@ -188,6 +194,7 @@ export default function Routine() {
           onChange={(e) =>
             dispatch({ type: 'setExercise', payload: e.target.value })
           }
+          onKeyDown={handleKeyPress}
         />
         <ValidCheck
           isValid={state.isValid}
