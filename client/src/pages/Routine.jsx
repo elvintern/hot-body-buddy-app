@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useRef } from 'react';
+import React, { useEffect, useReducer } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import ShowExercises from '../components/ShowExercises';
 import ShowRoutines from '../components/ShowRoutines';
@@ -9,6 +9,7 @@ import {
   addUserRoutine,
   updateUserRoutine,
 } from '../utils/index';
+import useFocusInput from '../components/FocusInput';
 
 const initialState = {
   routineName: '',
@@ -64,17 +65,13 @@ function reducer(state, action) {
 export default function Routine() {
   const { userId } = useParams();
   const [state, dispatch] = useReducer(reducer, initialState);
-  const inputRef = useRef(null);
+  const inputRef = useFocusInput();
 
   useEffect(() => {
     fetchUserInfoById(userId).then((res) => {
       dispatch({ type: 'setRoutines', payload: res.routines });
     });
   }, [userId, state.routines, state.exercises, state.editingRoutine]);
-
-  useEffect(() => {
-    inputRef.current.focus();
-  }, []);
 
   function deleteExercise(event, id) {
     event.preventDefault();
