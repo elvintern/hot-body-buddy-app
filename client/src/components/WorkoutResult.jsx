@@ -11,7 +11,7 @@ export default function WorkoutResult({ routine, performance }) {
 
   return (
     <div className="workout-result">
-      {routine.prevPerformance && (
+      {routine.prevPerformance.length > 0 && (
         <div className="result-container">
           <h2 className="heading-secondary">Previous Performance</h2>
           {routine.prevPerformance.map((el, i) => {
