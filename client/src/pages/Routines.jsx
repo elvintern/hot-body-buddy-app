@@ -14,7 +14,7 @@ import RoutineReducer from '../reducer/RoutineReducer';
 
 const { reducer, initialState } = RoutineReducer();
 
-export default function Routine() {
+export default function Routines() {
   const { userId } = useParams();
   const [state, dispatch] = useReducer(reducer, initialState);
   const inputRef = useFocusInput();
@@ -167,7 +167,6 @@ export default function Routine() {
               routines={state.routines}
               editRoutine={editRoutine}
               deleteRoutine={deleteRoutine}
-              isEditing={state.isEditing}
               editingRoutineId={state.editingRoutineId}
               handleSave={handleSave}
             />
