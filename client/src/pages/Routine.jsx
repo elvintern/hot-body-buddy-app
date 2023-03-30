@@ -9,58 +9,10 @@ import {
   addUserRoutine,
   updateUserRoutine,
 } from '../utils/index';
-import useFocusInput from '../components/FocusInput';
+import useFocusInput from '../customHook/useFocusInput';
+import RoutineReducer from '../reducer/RoutineReducer';
 
-const initialState = {
-  routineName: '',
-  exercise: '',
-  exercises: [],
-  routines: [],
-  editingRoutine: {},
-  isValid: true,
-  isEditing: false,
-  isDuplicated: false,
-  editingRoutineId: null,
-};
-
-function reducer(state, action) {
-  switch (action.type) {
-    case 'setRoutineName':
-      return { ...state, routineName: action.payload };
-    case 'setExercise':
-      return { ...state, exercise: action.payload };
-    case 'setExercises':
-      return { ...state, exercises: action.payload };
-    case 'addExercises':
-      return { ...state, exercises: [...state.exercises, action.payload] };
-    case 'setRoutines':
-      return { ...state, routines: action.payload };
-    case 'setEditingRoutine':
-      return {
-        ...state,
-        editingRoutine: action.payload,
-        exercises: action.payload.exercises,
-        routineName: action.payload.routineName,
-        isEditing: true,
-        editingRoutineId: action.payload._id,
-      };
-    case 'setIsValid':
-      return { ...state, isValid: action.payload };
-    case 'setIsEditing':
-      return { ...state, isEditing: action.payload };
-    case 'setIsDuplicated':
-      return { ...state, isDuplicated: action.payload };
-    case 'deleteExercise':
-      return {
-        ...state,
-        exercises: state.exercises.filter(
-          (el, index) => index !== action.payload
-        ),
-      };
-    default:
-      throw new Error();
-  }
-}
+const { reducer, initialState } = RoutineReducer();
 
 export default function Routine() {
   const { userId } = useParams();
@@ -160,70 +112,78 @@ export default function Routine() {
   return (
     <>
       <form className="form form-Routine">
-        <ValidCheck
-          isValid={!state.isDuplicated}
-          message={'The Same Routine Name Already Exist!'}
-        />
-        <label htmlFor="routineName" className="form__label">
-          routine name
-        </label>
-        <input
-          ref={inputRef}
-          type="text"
-          name="routineName"
-          className="form__input"
-          placeholder="ex) Back Day, Leg Day..."
-          value={state.routineName}
-          onChange={(e) =>
-            dispatch({ type: 'setRoutineName', payload: e.target.value })
-          }
-          required
-        />
-        <label htmlFor="userRoutine" className="form__label">
-          add your exercise
-        </label>
-        <input
-          type="text"
-          name="userRoutine"
-          className="form__input"
-          placeholder="ex) Deadlift, Squat ..."
-          value={state.exercise}
-          onChange={(e) =>
-            dispatch({ type: 'setExercise', payload: e.target.value })
-          }
-          onKeyDown={handleKeyPress}
-        />
-        <ValidCheck
-          isValid={state.isValid}
-          message={'Exercise name should be more than 2 letters'}
-        />
-
-        {state.exercises.length > 0 && (
-          <ShowExercises
-            deleteExercise={deleteExercise}
-            exercises={state.exercises}
+        <div className="form__group">
+          <ValidCheck
+            isValid={!state.isDuplicated}
+            message={'The Same Routine Name Already Exist!'}
           />
-        )}
-        {state.routines.length > 0 && (
-          <ShowRoutines
-            routines={state.routines}
-            editRoutine={editRoutine}
-            deleteRoutine={deleteRoutine}
-            isEditing={state.isEditing}
-            editingRoutineId={state.editingRoutineId}
-            handleSave={handleSave}
+          <label htmlFor="routineName" className="form__label">
+            routine name
+          </label>
+          <input
+            ref={inputRef}
+            type="text"
+            name="routineName"
+            className="form__input"
+            placeholder="ex) Back Day, Leg Day..."
+            value={state.routineName}
+            onChange={(e) =>
+              dispatch({ type: 'setRoutineName', payload: e.target.value })
+            }
+            required
           />
-        )}
-
-        <button onClick={(e) => addExercise(e)} className="btn btn-add">
-          Add
-        </button>
-        <button onClick={(e) => handleSave(e)} className="btn btn-signup">
-          save
-        </button>
-        <Link to={`/profile/${userId}`} className="btn btn-signup">
-          Go Back to Main
-        </Link>
+        </div>
+        <div className="form__group">
+          <label htmlFor="userRoutine" className="form__label">
+            add your exercise
+          </label>
+          <input
+            type="text"
+            name="userRoutine"
+            className="form__input"
+            placeholder="ex) Deadlift, Squat ..."
+            value={state.exercise}
+            onChange={(e) =>
+              dispatch({ type: 'setExercise', payload: e.target.value })
+            }
+            onKeyDown={handleKeyPress}
+          />
+          <ValidCheck
+            isValid={state.isValid}
+            message={'Exercise name should be more than 2 letters'}
+          />
+        </div>
+        <div className="form__group">
+          {state.exercises.length > 0 && (
+            <ShowExercises
+              deleteExercise={deleteExercise}
+              exercises={state.exercises}
+            />
+          )}
+        </div>
+        <div className="form__group">
+          {state.routines.length > 0 && (
+            <ShowRoutines
+              routines={state.routines}
+              editRoutine={editRoutine}
+              deleteRoutine={deleteRoutine}
+              isEditing={state.isEditing}
+              editingRoutineId={state.editingRoutineId}
+              handleSave={handleSave}
+            />
+          )}
+        </div>
+        <div className="form__group">
+          <button onClick={(e) => addExercise(e)} className="btn btn-add">
+            Add
+          </button>
+          <button onClick={(e) => handleSave(e)} className="btn btn-signup">
+            save
+          </button>
+          <Link to={`/profile/${userId}`} className="btn btn-signup">
+            Go Back to Main
+          </Link>
+        </div>
       </form>
     </>
   );
