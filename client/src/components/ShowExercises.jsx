@@ -1,14 +1,14 @@
 import React from 'react';
 
-export default function ShowExercises(props) {
+export default function ShowExercises({ exercises, deleteExercise }) {
   return (
     <ul className="exercises">
-      {props.exercises.map((el, index) => {
+      {exercises.map((exercise, index) => {
         return (
           <li className="exercise" key={index}>
-            {el}
-            {props.deleteExercise && (
-              <button onClick={(event) => props.deleteExercise(event, index)}>
+            {exercise}
+            {deleteExercise && (
+              <button onClick={(event) => deleteExercise(event, index)}>
                 Delete
               </button>
             )}
