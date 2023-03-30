@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import ValidCheck from '../components/ValidCheck';
-import useFocusInput from '../components/FocusInput';
+import useFocusInput from '../customHook/useFocusInput';
 
 export default function SignUp() {
   const navigate = useNavigate();

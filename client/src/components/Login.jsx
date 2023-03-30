@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import ValidCheck from './ValidCheck';
+import useFocusInput from '../customHook/useFocusInput';
 
 export default function Login() {
   const navigate = useNavigate();
@@ -9,11 +10,7 @@ export default function Login() {
     password: '',
   });
   const [isValid, setIsValid] = useState(true);
-  const inputRef = useRef();
-
-  useEffect(() => {
-    inputRef.current.focus();
-  }, []);
+  const inputRef = useFocusInput();
 
   const handleLogin = async (event) => {
     event.preventDefault();
