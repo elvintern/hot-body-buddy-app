@@ -15,13 +15,9 @@ export default function Quote() {
 
   return (
     <>
-      {quote ? (
-        <h1 className="heading-primary heading-primary--quote">
-          {quote.quote}
-        </h1>
-      ) : (
-        <h1 className="heading-primary heading-primary--quote">Loading...</h1>
-      )}
+      <h1 className="heading-primary heading-primary--quote">
+        {quote ? quote.quote : 'Loading...'}
+      </h1>
     </>
   );
 }
