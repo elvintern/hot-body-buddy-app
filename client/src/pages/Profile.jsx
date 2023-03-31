@@ -24,14 +24,14 @@ const Profile = () => {
   }, [userId, userInfo]);
 
   const startWorkOut = () => {
-    const routineId = userInfo.routines.find(
-      (routine) => routine.routineName === selectedRoutine
-    )._id;
-
-    if (!routineId) {
+    if (selectedRoutine === '') {
       setIsValid(false);
       return;
     }
+
+    const routineId = userInfo.routines.find(
+      (routine) => routine.routineName === selectedRoutine
+    )._id;
 
     navigate(`workout/${routineId}`);
   };
