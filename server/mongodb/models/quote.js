@@ -13,7 +13,8 @@ async function seedQuotes() {
       { quote: 'A year from now you may wish you had started today.' },
       { quote: 'Look in the mirror. That’s your competition.' },
       {
-        quote: "Wheter you think you can, or you think you can't, you're right",
+        quote:
+          "Whether you think you can, or you think you can't, you're right",
       },
       { quote: 'Get comfortable with being uncomfortable!' },
     ];
