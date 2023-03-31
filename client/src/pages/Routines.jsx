@@ -9,14 +9,16 @@ import {
   addUserRoutine,
   updateUserRoutine,
 } from '../utils/index';
+import { resetInput, deleteExercise } from '../utils/routines';
 import useFocusInput from '../customHook/useFocusInput';
 import RoutineReducer from '../reducer/RoutineReducer';
 
-const { reducer, initialState } = RoutineReducer();
-
 export default function Routines() {
   const { userId } = useParams();
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(
+    RoutineReducer().reducer,
+    RoutineReducer().initialState
+  );
   const inputRef = useFocusInput();
 
   useEffect(() => {
@@ -24,11 +26,6 @@ export default function Routines() {
       dispatch({ type: 'setRoutines', payload: res.routines });
     });
   }, [userId, state.routines, state.exercises, state.editingRoutine]);
-
-  function deleteExercise(event, id) {
-    event.preventDefault();
-    dispatch({ type: 'deleteExercise', payload: id });
-  }
 
   function deleteRoutine(event, id) {
     event.preventDefault();
@@ -39,13 +36,6 @@ export default function Routines() {
     event.preventDefault();
     const newRoutine = state.routines.find((routine) => routine._id === id);
     dispatch({ type: 'setEditingRoutine', payload: newRoutine });
-  }
-
-  function resetInput() {
-    dispatch({ type: 'setIsDuplicated', payload: false });
-    dispatch({ type: 'setRoutineName', payload: '' });
-    dispatch({ type: 'setExercise', payload: '' });
-    dispatch({ type: 'setExercises', payload: [] });
   }
 
   function addNewRoutine() {
@@ -65,7 +55,7 @@ export default function Routines() {
         prevPerformance: state.editingRoutine.prevPerformance,
       };
       await updateUserRoutine(userId, state.editingRoutine._id, newRoutine);
-      resetInput();
+      resetInput(dispatch);
     } catch (error) {
       console.log(error.message);
     }
@@ -80,7 +70,7 @@ export default function Routines() {
     ) {
       if (state.isEditing) {
         updateRoutine();
-        resetInput();
+        resetInput(dispatch);
         return;
       }
       dispatch({ type: 'setIsDuplicated', payload: true });
@@ -88,7 +78,7 @@ export default function Routines() {
     }
 
     addNewRoutine();
-    resetInput();
+    resetInput(dispatch);
   }
 
   function addExercise(event) {
@@ -156,6 +146,7 @@ export default function Routines() {
         <div className="form__group">
           {state.exercises.length > 0 && (
             <ShowExercises
+              dispatch={dispatch}
               deleteExercise={deleteExercise}
               exercises={state.exercises}
             />
