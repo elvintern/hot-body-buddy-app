@@ -1,15 +1,14 @@
 import React, { useEffect, useReducer } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import ShowExercises from '../components/ShowExercises';
+import RoutineForm from '../components/RoutineForm';
 import ShowRoutines from '../components/ShowRoutines';
-import ValidCheck from '../components/ValidCheck';
 import {
   fetchUserInfoById,
   deleteUserRoutine,
   addUserRoutine,
   updateUserRoutine,
 } from '../utils/index';
-import { resetInput, deleteExercise } from '../utils/routines';
+import { resetInput } from '../utils/routines';
 import useFocusInput from '../customHook/useFocusInput';
 import RoutineReducer from '../reducer/RoutineReducer';
 
@@ -81,77 +80,11 @@ export default function Routines() {
     resetInput(dispatch);
   }
 
-  function addExercise(event) {
-    event.preventDefault();
-    if (state.exercise.length < 3) {
-      dispatch({ type: 'setIsValid', payload: false });
-      return;
-    } else {
-      dispatch({ type: 'setIsValid', payload: true });
-      dispatch({ type: 'addExercises', payload: state.exercise });
-      dispatch({ type: 'setExercise', payload: '' });
-    }
-  }
-
-  const handleKeyPress = (event) => {
-    if (event.keyCode === 13) {
-      addExercise(event);
-    }
-  };
-
   return (
     <>
       <form className="form form-Routine">
-        <div className="form__group">
-          <ValidCheck
-            isValid={!state.isDuplicated}
-            message={'The Same Routine Name Already Exist!'}
-          />
-          <label htmlFor="routineName" className="form__label">
-            routine name
-          </label>
-          <input
-            ref={inputRef}
-            type="text"
-            name="routineName"
-            className="form__input"
-            placeholder="ex) Back Day, Leg Day..."
-            value={state.routineName}
-            onChange={(e) =>
-              dispatch({ type: 'setRoutineName', payload: e.target.value })
-            }
-            required
-          />
-        </div>
-        <div className="form__group">
-          <label htmlFor="userRoutine" className="form__label">
-            add your exercise
-          </label>
-          <input
-            type="text"
-            name="userRoutine"
-            className="form__input"
-            placeholder="ex) Deadlift, Squat ..."
-            value={state.exercise}
-            onChange={(e) =>
-              dispatch({ type: 'setExercise', payload: e.target.value })
-            }
-            onKeyDown={handleKeyPress}
-          />
-          <ValidCheck
-            isValid={state.isValid}
-            message={'Exercise name should be more than 2 letters'}
-          />
-        </div>
-        <div className="form__group">
-          {state.exercises.length > 0 && (
-            <ShowExercises
-              dispatch={dispatch}
-              deleteExercise={deleteExercise}
-              exercises={state.exercises}
-            />
-          )}
-        </div>
+        <RoutineForm state={state} dispatch={dispatch} inputRef={inputRef} />
+
         <div className="form__group">
           {state.routines.length > 0 && (
             <ShowRoutines
