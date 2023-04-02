@@ -4,7 +4,6 @@ import RoutineForm from '../components/RoutineForm';
 import ShowRoutines from '../components/ShowRoutines';
 import {
   fetchUserInfoById,
-  deleteUserRoutine,
   addUserRoutine,
   updateUserRoutine,
 } from '../utils/index';
@@ -25,17 +24,6 @@ export default function Routines() {
       dispatch({ type: 'setRoutines', payload: res.routines });
     });
   }, [userId, state.routines, state.exercises, state.editingRoutine]);
-
-  function deleteRoutine(event, id) {
-    event.preventDefault();
-    deleteUserRoutine(userId, id);
-  }
-
-  function editRoutine(event, id) {
-    event.preventDefault();
-    const newRoutine = state.routines.find((routine) => routine._id === id);
-    dispatch({ type: 'setEditingRoutine', payload: newRoutine });
-  }
 
   function addNewRoutine() {
     const newRoutine = {
@@ -85,17 +73,13 @@ export default function Routines() {
       <form className="form form-Routine">
         <RoutineForm state={state} dispatch={dispatch} inputRef={inputRef} />
 
-        <div className="form__group">
-          {state.routines.length > 0 && (
-            <ShowRoutines
-              routines={state.routines}
-              editRoutine={editRoutine}
-              deleteRoutine={deleteRoutine}
-              editingRoutineId={state.editingRoutineId}
-              handleSave={handleSave}
-            />
-          )}
-        </div>
+        <ShowRoutines
+          state={state}
+          dispatch={dispatch}
+          userId={userId}
+          handleSave={handleSave}
+        />
+
         <div className="form__group">
           <button onClick={(e) => addExercise(e)} className="btn btn-add">
             Add
