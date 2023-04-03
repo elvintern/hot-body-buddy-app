@@ -28,15 +28,6 @@ body {
   padding: v.$padding-section;
 }
 
-.nav {
-  background-color: v.$color-white;
-  padding: v.$padding-section;
-
-  &__logo-img {
-    width: 100%;
-  }
-}
-
 .btn {
   @include m.btn-style;
 

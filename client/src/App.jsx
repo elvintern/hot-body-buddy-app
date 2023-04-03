@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Nav from './components/Nav';
+import Header from './components/Header';
 import Quote from './components/Quote';
 import Home from './pages/Home';
 import SignUp from './pages/SignUp';
@@ -15,7 +15,7 @@ function App() {
   return (
     <>
       <Router>
-        <Nav />
+        <Header />
         <main className="main">
           <Quote />
           <Routes>

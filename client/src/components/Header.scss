@@ -1,0 +1,17 @@
+@use '../styles/abstracts/variables.scss' as v;
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: v.$color-white;
+  padding: v.$padding-section;
+}
+
+.logo-link {
+  width: 50%;
+}
+
+.logo-img {
+  width: 20rem;
+}
