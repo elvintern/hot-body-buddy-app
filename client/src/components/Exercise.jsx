@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import Set from './Set.jsx';
 
-export default function Exercise(props) {
+export default function Exercise({ exercise, performance, setPerformance }) {
   const [workoutResult, setWorkoutResult] = useState({
-    exercise: props.exercise,
+    exercise: exercise,
     reps: [],
     weight: [],
   });
@@ -15,7 +15,7 @@ export default function Exercise(props) {
     setCount,
     records,
     setRecords,
-    exercise: props.exercise,
+    exercise: exercise,
   };
 
   const handleClick = () => {
@@ -34,16 +34,16 @@ export default function Exercise(props) {
 
   useEffect(() => {
     if (isDone) {
-      const selectedPerformance = props.performance.find(
+      const selectedPerformance = performance.find(
         (el) => el.exercise === workoutResult.exercise
       );
       if (selectedPerformance) {
-        const newPerformance = props.performance.filter(
+        const newPerformance = performance.filter(
           (el) => el !== selectedPerformance
         );
-        props.setPerformance([...newPerformance, workoutResult]);
+        setPerformance([...newPerformance, workoutResult]);
       } else {
-        props.setPerformance((prev) => {
+        setPerformance((prev) => {
           return [...prev, workoutResult];
         });
       }
@@ -60,7 +60,7 @@ export default function Exercise(props) {
 
   return (
     <>
-      <h3 className="heading-tertiary">{props.exercise}</h3>
+      <h3 className="heading-tertiary">{exercise}</h3>
       {renderComponents()}
       <button onClick={handleClick} className="btn">
         done
