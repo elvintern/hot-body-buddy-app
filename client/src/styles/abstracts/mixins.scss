@@ -1,18 +1,20 @@
 @use 'variables' as v;
 
-@mixin btn-style($bg-color: v.$color-black-light, $font-size: 3rem) {
+@mixin btn-style($bg-color: v.$color-white, $font-size: 2.8rem) {
   display: block;
   width: 100%;
   padding: 1rem 0;
   font-size: $font-size;
   text-transform: capitalize;
   transition: 0.2s linear;
-  border-radius: 3px;
-  color: v.$color-black-light;
+  border-radius: 20px;
   text-decoration: none;
   text-align: center;
-  border: solid 1px v.$color-black-light;
-  background-color: v.$color-white;
+  background-color: $bg-color;
+  color: v.$color-black-light-4;
+  border: solid 4px v.$color-white;
+  font-weight: 700;
+  cursor: pointer;
 }
 
 @mixin link-style($color: v.$color-white) {

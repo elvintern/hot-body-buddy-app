@@ -32,23 +32,19 @@ body {
   @include m.btn-style;
 
   &:hover {
-    opacity: 0.9;
+    background-color: transparent;
+    color: v.$color-white;
   }
 
-  &--top {
-    margin-top: 3rem;
-    background-color: v.$color-green;
-  }
+  &--first {
+    margin: 3rem 0 1rem;
+    background-color: transparent;
+    color: v.$color-white;
 
-  &--signup {
-    display: block;
-    width: 100%;
-    margin: 0 auto;
-    text-align: center;
-  }
-
-  &--bottom {
-    margin-top: 1rem;
+    &:hover {
+      background-color: v.$color-white;
+      color: v.$color-primary;
+    }
   }
 
   &--set {

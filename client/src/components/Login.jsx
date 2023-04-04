@@ -44,7 +44,7 @@ export default function Login() {
         <ValidCheck isValid={isValid} message={'Invalid email or password'} />
         <div className="form__group">
           <label htmlFor="userEmail" className="form__label">
-            user email
+            email address
           </label>
           <input
             ref={inputRef}
@@ -70,10 +70,10 @@ export default function Login() {
           />
         </div>
         <div className="form__group">
-          <button type="submit" className="btn btn--top">
+          <button type="submit" className="btn btn--first">
             login
           </button>
-          <Link to="/sign-up" className="btn btn--signup">
+          <Link to="/sign-up" className="btn btn--second">
             sign up
           </Link>
         </div>
