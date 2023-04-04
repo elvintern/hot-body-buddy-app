@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import './Quote.scss';
 
 export default function Quote() {
   const [quote, setQuote] = useState({});

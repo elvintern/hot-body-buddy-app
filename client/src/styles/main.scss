@@ -18,7 +18,7 @@ html {
 }
 
 body {
-  font: 1.6rem 'Lato', sans-serif;
+  font: 1.6rem 'PT Sans', 'Lato';
   color: v.$color-white;
   min-height: 100vh;
   background-color: v.$color-primary;
@@ -96,7 +96,6 @@ body {
   font-size: 3rem;
 
   &--quote {
-    font-family: 'PT Serif', 'Lato';
     text-transform: capitalize;
     text-align: center;
     color: v.$color-white;
