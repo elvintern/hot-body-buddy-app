@@ -14,3 +14,9 @@
   border: solid 1px v.$color-black-light;
   background-color: v.$color-white;
 }
+
+@mixin link-style($color: v.$color-white) {
+  color: $color;
+  text-decoration: none;
+  transition: 0.2s linear;
+}

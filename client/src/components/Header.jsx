@@ -19,7 +19,7 @@ const Header = () => {
           <img src={logo} alt="hbb logo" className="logo-img" />
         </Link>
         <Nav navRef={navRef} showNavbar={showNavbar} />
-        <button className="nav-btn" onClick={showNavbar}>
+        <button className="header__btn" onClick={showNavbar}>
           <FontAwesomeIcon icon={faBars} />
         </button>
       </header>

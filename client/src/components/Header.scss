@@ -6,10 +6,19 @@
   align-items: center;
   background-color: v.$color-white;
   padding: v.$padding-section;
-}
 
-.logo-link {
-  width: 50%;
+  &__btn {
+    font-size: 3.5rem;
+    background-color: transparent;
+    border: none;
+    color: #2f4858;
+    transition: 0.2s linear;
+    cursor: pointer;
+
+    &:hover {
+      color: v.$color-primary;
+    }
+  }
 }
 
 .logo-img {

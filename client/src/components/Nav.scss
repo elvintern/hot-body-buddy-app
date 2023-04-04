@@ -1,62 +1,122 @@
 @use '../styles/abstracts/variables.scss' as v;
+@use '../styles/abstracts/mixins.scss' as m;
 
 .nav {
+  background-color: v.$color-white;
+  position: fixed;
+  top: -100vh;
+  left: 0;
+  height: 100%;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3rem;
+  transition: 0.3s linear;
 
-  &__link {
-    text-decoration: none;
-
-    &:not(:first-child) {
-      margin-left: 2rem;
-    }
-
-    &:hover {
-      color: red;
-    }
-  }
-}
-
-.nav__btn {
-  padding: 5px;
-  cursor: pointer;
-  background: transparent;
-  border: none;
-  outline: none;
-  color: var(--textColor);
-  visibility: hidden;
-  opacity: 0;
-  font-size: 1.8rem;
-}
-
-@media only screen and (max-width: 1024px) {
-  .nav {
-    position: fixed;
-    top: -100vh;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 1.5rem;
-    background-color: v.$color-primary;
-    transition: 1s;
-
-    &__btn {
-      visibility: visible;
-      opacity: 1;
-    }
-  }
-
-  .nav--responsive {
+  &--responsive {
     transform: translateY(100vh);
   }
 
-  .nav__btn--close {
-    position: absolute;
-    top: 2rem;
-    right: 2rem;
-    color: v.$color-black;
+  &__link {
+    @include m.link-style(v.$color-black-light-4);
+    font-size: 3rem;
+    border-bottom: solid 2px transparent;
+    padding-bottom: 0.5rem;
+
+    &:hover {
+      color: v.$color-primary;
+      border-bottom: solid 2px v.$color-primary;
+    }
+  }
+
+  &__btn {
+    visibility: visible;
+    opacity: 1;
+
+    &--close {
+      position: absolute;
+      top: 4rem;
+      right: 4rem;
+      font-size: 4rem;
+      border: none;
+      color: v.$color-black-light-4;
+      transition: 0.2s linear;
+      cursor: pointer;
+
+      &:hover {
+        color: v.$color-primary;
+      }
+    }
   }
 }
+
+/* *************************************** */
+/* Media Stlye */
+/* *************************************** */
+/* Extra small devices (phones, less than 576px) */
+@media only screen and (max-width: 575.98px) {
+}
+/* Small devices (phones, 576px and up) */
+@media only screen and (min-width: 576px) {
+}
+/* Medium devices (tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+}
+/* Large devices (desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  .nav {
+    position: relative;
+    top: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 1.5rem;
+    background-color: v.$color-white;
+
+    &__link {
+      &:not(:first-child) {
+        margin-left: 2rem;
+      }
+
+      &:hover {
+        color: v.$color-primary;
+      }
+    }
+
+    &__btn {
+      padding: 5px;
+      cursor: pointer;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: var(--textColor);
+      visibility: hidden;
+      opacity: 0;
+      font-size: 1.8rem;
+    }
+  }
+}
+/* Extra large devices (large desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+}
+
+// /* *************************************** */
+// /* Media Stlye */
+// /* *************************************** */
+// /* Extra small devices (phones, less than 576px) */
+// @media only screen and (max-width: 575.98px) {
+// }
+// /* Small devices (phones, 576px and up) */
+// @media only screen and (min-width: 576px) {
+// }
+// /* Medium devices (tablets, 768px and up) */
+// @media only screen and (min-width: 768px) {
+// }
+// /* Large devices (desktops, 992px and up) */
+// @media only screen and (min-width: 992px) {
+// }
+// /* Extra large devices (large desktops, 1200px and up) */
+// @media only screen and (min-width: 1200px) {
+// }
