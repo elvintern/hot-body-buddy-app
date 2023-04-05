@@ -4,7 +4,8 @@ import './Nav.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faRectangleXmark } from '@fortawesome/free-solid-svg-icons';
 
-const Nav = ({ navRef, showNavbar }) => {
+const Nav = ({ navProps }) => {
+  const { isLoggedIn, login, logout, navRef, showNavbar } = navProps;
   return (
     <nav ref={navRef} className="nav">
       <Link className="nav__link" href="/#">
@@ -17,7 +18,7 @@ const Nav = ({ navRef, showNavbar }) => {
         Blog
       </Link>
       <Link className="nav__link" href="/#">
-        Logout
+        {isLoggedIn ? 'Logout' : 'Login'}
       </Link>
       <button className="nav__btn nav__btn--close" onClick={showNavbar}>
         <FontAwesomeIcon icon={faRectangleXmark} />
