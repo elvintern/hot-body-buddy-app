@@ -8,12 +8,12 @@ import Profile from './pages/Profile';
 import Routines from './pages/Routines';
 import NotFound from './pages/NotFound';
 import Workout from './pages/Workout';
-
+import { AuthProvider } from './components/AuthContext';
 import '../src/styles/main.scss';
 
 function App() {
   return (
-    <>
+    <AuthProvider>
       <Router>
         <Header />
         <main className="main">
@@ -30,7 +30,7 @@ function App() {
           </Routes>
         </main>
       </Router>
-    </>
+    </AuthProvider>
   );
 }
 
