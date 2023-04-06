@@ -26,10 +26,7 @@ const Header = () => {
   return (
     <>
       <header className="header">
-        <Link
-          to={isLoggedIn ? `/profile/${userId}` : '/'}
-          className="logo-link"
-        >
+        <Link to={'/'} className="logo-link">
           <img src={logo} alt="hbb logo" className="logo-img" />
         </Link>
         <Nav navProps={navProps} />

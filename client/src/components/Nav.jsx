@@ -17,7 +17,7 @@ const Nav = ({ navProps }) => {
       <Link className="nav__link" href="/#">
         Blog
       </Link>
-      <Link className="nav__link" href="/#">
+      <Link className="nav__link" href="/">
         {isLoggedIn ? 'Logout' : 'Login'}
       </Link>
       <button className="nav__btn nav__btn--close" onClick={showNavbar}>
