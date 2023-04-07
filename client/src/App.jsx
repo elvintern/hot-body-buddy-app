@@ -10,6 +10,8 @@ import NotFound from './pages/NotFound';
 import Workout from './pages/Workout';
 import { AuthProvider } from './components/AuthContext';
 import '../src/styles/main.scss';
+import ProtectedRoutes from './ProtectedRoutes';
+import About from './pages/About';
 
 function App() {
   return (
@@ -21,10 +23,13 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="sign-up" element={<SignUp />} />
-            <Route path="profile/:userId">
-              <Route index element={<Profile />} />
-              <Route path="routine" element={<Routines />} />
-              <Route path="workout/:workoutId" element={<Workout />} />
+            <Route path="about" element={<About />} />
+            <Route element={<ProtectedRoutes />}>
+              <Route path="profile/:userId">
+                <Route index element={<Profile />} />
+                <Route path="routine" element={<Routines />} />
+                <Route path="workout/:workoutId" element={<Workout />} />
+              </Route>
             </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>
