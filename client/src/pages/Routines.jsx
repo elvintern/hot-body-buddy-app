@@ -48,6 +48,18 @@ export default function Routines() {
     }
   }
 
+  function addExercise(event) {
+    event.preventDefault();
+    if (state.exercise.length < 3) {
+      dispatch({ type: 'setIsValid', payload: false });
+      return;
+    } else {
+      dispatch({ type: 'setIsValid', payload: true });
+      dispatch({ type: 'addExercises', payload: state.exercise });
+      dispatch({ type: 'setExercise', payload: '' });
+    }
+  }
+
   function handleSave(event) {
     event.preventDefault();
     if (
@@ -71,7 +83,12 @@ export default function Routines() {
   return (
     <>
       <form className="form form-Routine">
-        <RoutineForm state={state} dispatch={dispatch} inputRef={inputRef} />
+        <RoutineForm
+          state={state}
+          dispatch={dispatch}
+          inputRef={inputRef}
+          addExercise={addExercise}
+        />
 
         <ShowRoutines
           state={state}

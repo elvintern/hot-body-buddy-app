@@ -3,19 +3,12 @@ import ShowExercises from '../components/ShowExercises';
 import ValidCheck from '../components/ValidCheck';
 import { deleteExercise } from '../utils/routines';
 
-export default function RoutineForm({ state, dispatch, inputRef }) {
-  function addExercise(event) {
-    event.preventDefault();
-    if (state.exercise.length < 3) {
-      dispatch({ type: 'setIsValid', payload: false });
-      return;
-    } else {
-      dispatch({ type: 'setIsValid', payload: true });
-      dispatch({ type: 'addExercises', payload: state.exercise });
-      dispatch({ type: 'setExercise', payload: '' });
-    }
-  }
-
+export default function RoutineForm({
+  state,
+  dispatch,
+  inputRef,
+  addExercise,
+}) {
   const handleKeyPress = (event) => {
     if (event.keyCode === 13) {
       addExercise(event);
