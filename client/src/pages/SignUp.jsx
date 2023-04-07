@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import ValidCheck from '../components/ValidCheck';
 import useFocusInput from '../customHook/useFocusInput';
+import { AuthContext } from '../components/AuthContext';
 
 export default function SignUp() {
+  const { login } = useContext(AuthContext);
   const navigate = useNavigate();
   const [userInfo, setUserInfo] = useState({
     firstName: '',
@@ -38,6 +40,8 @@ export default function SignUp() {
 
     if (data) {
       setIsValid(true);
+      login();
+      localStorage.setItem('id', data);
       navigate(`/profile/${data}`);
     } else {
       setIsValid(false);

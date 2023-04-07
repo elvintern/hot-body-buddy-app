@@ -1,5 +1,5 @@
 import React, { useRef, useContext } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import logo from '../assets/hbb-logo.png';
 import Nav from './Nav';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -8,16 +8,15 @@ import './Header.scss';
 import { AuthContext } from './AuthContext';
 
 const Header = () => {
-  const { isLoggedIn, login, logout } = useContext(AuthContext);
+  const userId = localStorage.getItem('id');
+  const { isLoggedIn, logout } = useContext(AuthContext);
   const navRef = useRef();
-  const { userId } = useParams();
   const showNavbar = () => {
     navRef.current.classList.toggle('nav--responsive');
   };
 
   const navProps = {
     isLoggedIn,
-    login,
     logout,
     navRef,
     showNavbar,
@@ -26,7 +25,10 @@ const Header = () => {
   return (
     <>
       <header className="header">
-        <Link to={'/'} className="logo-link">
+        <Link
+          to={isLoggedIn ? `/profile/${userId}` : '/'}
+          className="logo-link"
+        >
           <img src={logo} alt="hbb logo" className="logo-img" />
         </Link>
         <Nav navProps={navProps} />

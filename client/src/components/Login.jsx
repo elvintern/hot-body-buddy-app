@@ -29,7 +29,8 @@ export default function Login() {
 
     if (response.ok) {
       setIsValid(true);
-      login();
+      await login();
+      await localStorage.setItem('id', data);
       navigate(`/profile/${data}`);
     } else {
       setIsValid(false);
