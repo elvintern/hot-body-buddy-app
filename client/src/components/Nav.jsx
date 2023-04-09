@@ -5,23 +5,25 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faRectangleXmark } from '@fortawesome/free-solid-svg-icons';
 
 const Nav = ({ navProps }) => {
+  const userId = localStorage.getItem('id');
   const { isLoggedIn, logout, navRef, showNavbar } = navProps;
 
   const handleClick = () => {
     if (isLoggedIn) {
       logout();
+      localStorage.clear();
     }
   };
 
   return (
     <nav ref={navRef} className="nav">
-      <Link className="nav__link" to="profile/:userId">
+      <Link className="nav__link" to={isLoggedIn ? `/profile/${userId}` : '/'}>
         Home
       </Link>
       <Link className="nav__link" to="/about">
         About us
       </Link>
-      <Link className="nav__link" to="profile/:userId">
+      <Link className="nav__link" to={isLoggedIn ? `/profile/${userId}` : '/'}>
         Profile
       </Link>
 
