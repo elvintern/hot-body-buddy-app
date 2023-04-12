@@ -9,7 +9,8 @@ export default function Home() {
   const userId = localStorage.getItem('id');
   const navigate = useNavigate();
   const { isLoggedIn, login } = useContext(AuthContext);
-  if (userId && isLoggedIn) {
+  console.log(userId, isLoggedIn);
+  if (userId) {
     login();
     navigate(`/profile/${userId}`);
   }

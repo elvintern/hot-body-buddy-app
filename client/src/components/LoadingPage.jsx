@@ -14,7 +14,6 @@ function LoadingPage() {
     }
 
     const timer = setTimeout(() => {
-      console.log('change');
       setIsLoading(false);
     }, 2000);
 
