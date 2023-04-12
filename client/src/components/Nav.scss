@@ -15,6 +15,7 @@
   gap: 3rem;
   transition: 0.3s linear;
   font-weight: 700;
+  z-index: 2;
 
   &--responsive {
     transform: translateY(100vh);
