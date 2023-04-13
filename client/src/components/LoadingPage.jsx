@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import LoadingIcons from 'react-loading-icons';
 
 function LoadingPage() {
   const [isLoading, setIsLoading] = useState(true);
@@ -47,7 +48,9 @@ function LoadingPage() {
           style={{
             background: `url('${loadingImage}') center/cover`,
           }}
-        ></div>
+        >
+          <LoadingIcons.BallTriangle className="loading-icon" width={'50rem'} />
+        </div>
       ) : (
         <p>Content loaded!</p>
       )}
