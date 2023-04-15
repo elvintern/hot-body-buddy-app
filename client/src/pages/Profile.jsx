@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import './Profile.scss';
+import LoadingPage from '../components/LoadingPage';
 import { fetchUserInfoById } from '../utils/index.js';
 import ValidCheck from '../components/ValidCheck';
 
@@ -38,6 +39,7 @@ const Profile = () => {
 
   return (
     <>
+      <LoadingPage />
       {!userInfo ? (
         <p>loading...</p>
       ) : (

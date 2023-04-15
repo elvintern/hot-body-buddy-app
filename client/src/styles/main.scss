@@ -104,6 +104,7 @@ body {
 }
 
 .loading-image {
+  filter: grayscale(100%);
   position: absolute;
   top: 20vh;
   left: 0;

@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import Login from '../components/Login';
-import LoadingPage from '../components/LoadingPage';
 import './Home.scss';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../components/AuthContext';
@@ -8,8 +7,7 @@ import { AuthContext } from '../components/AuthContext';
 export default function Home() {
   const userId = localStorage.getItem('id');
   const navigate = useNavigate();
-  const { isLoggedIn, login } = useContext(AuthContext);
-  console.log(userId, isLoggedIn);
+  const { login } = useContext(AuthContext);
   if (userId) {
     login();
     navigate(`/profile/${userId}`);
@@ -17,7 +15,6 @@ export default function Home() {
 
   return (
     <>
-      <LoadingPage />
       <Login />
     </>
   );

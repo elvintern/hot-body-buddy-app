@@ -7,10 +7,8 @@ function LoadingPage() {
 
   useEffect(() => {
     if (window.innerWidth >= 992) {
-      console.log(Math.floor(Math.random() * landscape.length));
       setLoadingImage(landscape[Math.floor(Math.random() * landscape.length)]);
     } else {
-      console.log(Math.floor(Math.random() * portrait.length));
       setLoadingImage(portrait[Math.floor(Math.random() * portrait.length)]);
     }
 
@@ -42,7 +40,7 @@ function LoadingPage() {
 
   return (
     <>
-      {isLoading ? (
+      {isLoading && (
         <div
           className="loading-image"
           style={{
@@ -51,8 +49,6 @@ function LoadingPage() {
         >
           <LoadingIcons.BallTriangle className="loading-icon" width={'50rem'} />
         </div>
-      ) : (
-        <p>Content loaded!</p>
       )}
     </>
   );
