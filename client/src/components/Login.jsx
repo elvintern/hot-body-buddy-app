@@ -48,7 +48,7 @@ export default function Login() {
         <ValidCheck isValid={isValid} message={'Invalid email or password'} />
         <div className="form__group">
           <label htmlFor="userEmail" className="form__label">
-            email address
+            email
           </label>
           <input
             ref={inputRef}

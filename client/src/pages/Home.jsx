@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
-import Login from '../components/Login';
 import './Home.scss';
+import Login from '../components/Login';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../components/AuthContext';
 
@@ -14,8 +14,9 @@ export default function Home() {
   }
 
   return (
-    <>
+    <div className="home">
+      <div className="landing-img"></div>
       <Login />
-    </>
+    </div>
   );
 }
