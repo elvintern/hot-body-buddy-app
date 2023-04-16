@@ -46,7 +46,7 @@ export default function Login() {
     <>
       <form className="form form-login" onSubmit={handleLogin}>
         <ValidCheck isValid={isValid} message={'Invalid email or password'} />
-        <div className="form__group">
+        <div className="form__container">
           <label htmlFor="userEmail" className="form__label">
             email
           </label>
@@ -60,7 +60,7 @@ export default function Login() {
             required
           />
         </div>
-        <div className="form__group">
+        <div className="form__container">
           <label htmlFor="password" className="form__label">
             password
           </label>
@@ -73,7 +73,7 @@ export default function Login() {
             required
           />
         </div>
-        <div className="form__group">
+        <div className="form__container form__container--btns">
           <button type="submit" className="btn btn--first">
             login
           </button>

@@ -1,7 +1,5 @@
 .home {
   display: flex;
-  gap: 3rem;
-  margin-top: 5rem;
 }
 
 .landing-img {
@@ -28,6 +26,11 @@
 }
 /* Large devices (desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
+  .home {
+    gap: 3rem;
+    margin-top: 5rem;
+  }
+
   .landing-img {
     display: block;
   }

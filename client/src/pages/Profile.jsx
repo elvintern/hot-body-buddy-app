@@ -40,6 +40,7 @@ const Profile = () => {
   return (
     <>
       <LoadingPage />
+
       {!userInfo ? (
         <p>loading...</p>
       ) : (
