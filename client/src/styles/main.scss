@@ -123,6 +123,21 @@ body {
   z-index: 1;
 }
 
+.landing-img {
+  display: none;
+  filter: grayscale(100%);
+  width: 80%;
+  height: 100vh;
+  z-index: 1;
+  flex: 1 1 80%;
+  background: url('../assets/landing.jpg') center/cover;
+
+  &--signUp {
+    flex-basis: 50%;
+    background-image: url('../assets/landing-2.jpg');
+  }
+}
+
 .loading-icon {
   width: 100px;
   height: 100px;
@@ -130,4 +145,26 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+/* *************************************** */
+/* Media Stlye */
+/* *************************************** */
+/* Extra small devices (phones, less than 576px) */
+@media only screen and (max-width: 575.99px) {
+}
+/* Small devices (phones, 576px and up) */
+@media only screen and (min-width: 576px) {
+}
+/* Medium devices (tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+}
+/* Large devices (desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  .landing-img {
+    display: block;
+  }
+}
+/* Extra large devices (large desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
 }

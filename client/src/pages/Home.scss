@@ -2,16 +2,6 @@
   display: flex;
 }
 
-.landing-img {
-  display: none;
-  filter: grayscale(100%);
-  width: 80%;
-  height: 100vh;
-  z-index: 1;
-  flex: 1 1 80%;
-  background: url('../assets/landing.jpg') center/cover;
-}
-
 /* *************************************** */
 /* Media Stlye */
 /* *************************************** */
@@ -29,10 +19,6 @@
   .home {
     gap: 3rem;
     margin-top: 5rem;
-  }
-
-  .landing-img {
-    display: block;
   }
 }
 /* Extra large devices (large desktops, 1200px and up) */
