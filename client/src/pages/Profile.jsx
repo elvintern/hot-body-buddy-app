@@ -79,15 +79,17 @@ const Profile = () => {
             />
           )}
 
-          <button className="btn btn--top" onClick={startWorkOut}>
-            start work out
-          </button>
-          <button
-            className="btn btn--bottom"
-            onClick={() => navigate(`routine`)}
-          >
-            manage routines
-          </button>
+          <div className="form__container form__container--btns">
+            <button className="btn btn--top" onClick={startWorkOut}>
+              start work out
+            </button>
+            <button
+              className="btn btn--bottom"
+              onClick={() => navigate(`routine`)}
+            >
+              manage routines
+            </button>
+          </div>
         </>
       )}
     </>
