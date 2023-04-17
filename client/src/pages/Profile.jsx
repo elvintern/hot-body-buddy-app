@@ -21,7 +21,12 @@ const Profile = () => {
         console.error(err);
       }
     }
-    getUserInfo();
+
+    const timer = setTimeout(() => {
+      getUserInfo();
+    }, 2000);
+
+    return () => clearTimeout(timer);
   }, [userId, userInfo]);
 
   const startWorkOut = () => {
@@ -39,10 +44,8 @@ const Profile = () => {
 
   return (
     <>
-      <LoadingPage />
-
       {!userInfo ? (
-        <p>loading...</p>
+        <LoadingPage />
       ) : (
         <>
           <div className="profile">
