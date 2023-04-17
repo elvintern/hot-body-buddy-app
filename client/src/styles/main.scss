@@ -131,6 +131,7 @@ body {
   height: 100vh;
   z-index: 1;
   flex: 1 1 80%;
+  border-radius: 3rem;
   background: url('../assets/landing.jpg') center/cover;
 
   &--signUp {
