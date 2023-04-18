@@ -1,13 +1,21 @@
 @use '../styles/abstracts/variables.scss' as v;
 
 .profile {
-  background-color: v.$color-white;
-  color: v.$color-black;
-  margin-top: 4rem;
-  text-align: center;
-  font-size: 2.5rem;
-  padding: 3rem;
-  border-radius: 2rem;
+  display: flex;
+
+  &__container {
+    flex: 1 1 70%;
+  }
+
+  &__info {
+    background-color: v.$color-white;
+    color: v.$color-black;
+    margin-top: 4rem;
+    text-align: center;
+    font-size: 2.5rem;
+    padding: 3rem;
+    border-radius: 2rem;
+  }
 
   &__welcome-msg {
     font-size: 3rem;
@@ -35,4 +43,27 @@
   margin-top: 3rem;
   border-radius: 0.5rem;
   text-transform: capitalize;
+}
+
+/* *************************************** */
+/* Media Stlye */
+/* *************************************** */
+/* Extra small devices (phones, less than 576px) */
+@media only screen and (max-width: 575.99px) {
+}
+/* Small devices (phones, 576px and up) */
+@media only screen and (min-width: 576px) {
+}
+/* Medium devices (tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+}
+/* Large devices (desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  .profile {
+    gap: 3rem;
+    margin-top: 5rem;
+  }
+}
+/* Extra large devices (large desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
 }

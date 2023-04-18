@@ -127,16 +127,20 @@ body {
 .landing-img {
   display: none;
   filter: grayscale(100%);
-  width: 80%;
   height: 100vh;
   z-index: 1;
   flex: 1 1 80%;
   border-radius: 3rem;
-  background: url('../assets/landing.jpg') center/cover;
+  background: url('../assets/landing-1.jpg') center/cover;
 
   &--signUp {
     flex-basis: 50%;
     background-image: url('../assets/landing-2.jpg');
+  }
+
+  &--profile {
+    flex-basis: 30%;
+    background-image: url('../assets/landing-3.jpg');
   }
 }
 
@@ -169,4 +173,8 @@ body {
 }
 /* Extra large devices (large desktops, 1200px and up) */
 @media only screen and (min-width: 1200px) {
+  html {
+    font-size: 75%;
+    scroll-behavior: smooth;
+  }
 }

@@ -47,50 +47,57 @@ const Profile = () => {
       {!userInfo ? (
         <LoadingPage />
       ) : (
-        <>
-          <div className="profile">
-            <p className="profile__welcome-msg">welcome {userInfo.firstName}</p>
-            <p className="profile__report-times">
-              you have been to the gym {userInfo.totalCount} time
-              {userInfo.totalCount > 1 ? 's' : ''} since{' '}
-              {userInfo.created_at.substring(0, 10)}
-            </p>
-            <p className="profile__user-goal">your goal: {userInfo.goal}</p>
-          </div>
+        <div className="profile">
+          <div className="profile__container">
+            <div className="profile__info">
+              <p className="profile__welcome-msg">
+                welcome {userInfo.firstName}
+              </p>
+              <p className="profile__report-times">
+                you have been to the gym {userInfo.totalCount} time
+                {userInfo.totalCount > 1 ? 's' : ''} since{' '}
+                {userInfo.created_at.substring(0, 10)}
+              </p>
+              <p className="profile__user-goal">your goal: {userInfo.goal}</p>
+            </div>
 
-          <select
-            name="routine"
-            className="user-routines"
-            value={selectedRoutine}
-            onChange={(e) => setSelectedRoutine(e.target.value)}
-          >
-            <option disabled value="">
-              choose your workout routine
-            </option>
-            {userInfo.routines.length > 0 &&
-              userInfo.routines.map((routine) => {
-                return <option key={routine._id}>{routine.routineName}</option>;
-              })}
-          </select>
-          {!isValid && (
-            <ValidCheck
-              isValid={isValid}
-              message={'You have to choose your routine!'}
-            />
-          )}
-
-          <div className="form__container form__container--btns">
-            <button className="btn btn--top" onClick={startWorkOut}>
-              start work out
-            </button>
-            <button
-              className="btn btn--bottom"
-              onClick={() => navigate(`routine`)}
+            <select
+              name="routine"
+              className="user-routines"
+              value={selectedRoutine}
+              onChange={(e) => setSelectedRoutine(e.target.value)}
             >
-              manage routines
-            </button>
+              <option disabled value="">
+                choose your workout routine
+              </option>
+              {userInfo.routines.length > 0 &&
+                userInfo.routines.map((routine) => {
+                  return (
+                    <option key={routine._id}>{routine.routineName}</option>
+                  );
+                })}
+            </select>
+            {!isValid && (
+              <ValidCheck
+                isValid={isValid}
+                message={'You have to choose your routine!'}
+              />
+            )}
+
+            <div className="form__container form__container--btns">
+              <button className="btn btn--top" onClick={startWorkOut}>
+                start work out
+              </button>
+              <button
+                className="btn btn--bottom"
+                onClick={() => navigate(`routine`)}
+              >
+                manage routines
+              </button>
+            </div>
           </div>
-        </>
+          <div className="landing-img landing-img--profile"></div>
+        </div>
       )}
     </>
   );
