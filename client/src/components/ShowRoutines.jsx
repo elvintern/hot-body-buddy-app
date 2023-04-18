@@ -17,7 +17,7 @@ export default function ShowRoutines({ state, dispatch, userId, handleSave }) {
   return (
     state.routines.length > 0 && (
       <>
-        <div className="form__group">
+        <div className="form__container">
           {state.routines.map((routine) => (
             <Routine
               key={routine._id}

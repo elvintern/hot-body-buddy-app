@@ -97,7 +97,7 @@ export default function Routines() {
           handleSave={handleSave}
         />
 
-        <div className="form__group">
+        <div className="form__container form__container--btns">
           <button onClick={(e) => addExercise(e)} className="btn btn-add">
             Add
           </button>

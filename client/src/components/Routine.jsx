@@ -1,4 +1,5 @@
 import ShowExercises from './ShowExercises';
+import './Routine.scss';
 
 export default function Routine({
   routine,
@@ -18,12 +19,18 @@ export default function Routine({
 
   return (
     <div className="routine" key={routine._id}>
-      <h3 className="heading-tertiary">{routine.routineName}</h3>
-      <button onClick={handleEdit}>
+      <h3 className="heading-tertiary">{routine.routineName} </h3>
+
+      <ShowExercises exercises={routine.exercises} />
+      <button className="btn btn--routine" onClick={handleEdit}>
         {editingRoutineId === routine._id ? 'Save' : 'Edit'}
       </button>
-      <button onClick={(e) => deleteRoutine(e, routine._id)}>Delete</button>
-      <ShowExercises exercises={routine.exercises} />
+      <button
+        className="btn btn--routine"
+        onClick={(e) => deleteRoutine(e, routine._id)}
+      >
+        Delete
+      </button>
     </div>
   );
 }

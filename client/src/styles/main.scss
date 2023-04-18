@@ -50,6 +50,32 @@ body {
     display: inline-block;
     width: 5rem;
   }
+
+  &--routine {
+    display: inline-block;
+    font-size: 2rem;
+    width: 10rem;
+    border: 2px solid v.$color-black;
+    margin-top: 2rem;
+
+    &:hover {
+      color: v.$color-primary;
+      border: 2px solid v.$color-primary;
+    }
+
+    &:first-of-type {
+      margin-right: 0.7rem;
+    }
+  }
+
+  &--exercise {
+    display: inline-block;
+    border: 2px solid v.$color-black;
+    width: 10rem;
+    padding: 0.5rem;
+    font-size: 1.8rem;
+    margin-left: 2rem;
+  }
 }
 
 .form {
@@ -112,6 +138,10 @@ body {
 
 .heading-secondary {
   font-size: 2.5rem;
+}
+
+.heading-tertiary {
+  font-size: 2.3rem;
 }
 
 .loading-image {
