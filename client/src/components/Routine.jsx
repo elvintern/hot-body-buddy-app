@@ -11,7 +11,7 @@ export default function Routine({
   const handleEdit = (event) => {
     if (editingRoutineId === routine._id) {
       editRoutine(event, routine._id);
-      handleSave();
+      handleSave(event);
     } else {
       editRoutine(event, routine._id);
     }
