@@ -2,6 +2,7 @@ import React, { useEffect, useReducer } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import RoutineForm from '../components/RoutineForm';
 import ShowRoutines from '../components/ShowRoutines';
+import './Routines.scss';
 import {
   fetchUserInfoById,
   addUserRoutine,
@@ -81,7 +82,8 @@ export default function Routines() {
   }
 
   return (
-    <>
+    <div className="routines">
+      <div className="landing-img landing-img--routines"></div>
       <form className="form form-Routine">
         <RoutineForm
           state={state}
@@ -109,6 +111,6 @@ export default function Routines() {
           </Link>
         </div>
       </form>
-    </>
+    </div>
   );
 }

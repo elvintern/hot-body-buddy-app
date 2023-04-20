@@ -1,14 +1,5 @@
-@use '../styles/abstracts/variables.scss' as v;
-
-.routine {
-  background-color: v.$color-white;
-  color: v.$color-black;
-  padding: 1rem;
-  border-radius: 2rem;
-
-  &:not(:first-child) {
-    margin-top: 2rem;
-  }
+.routines {
+  display: flex;
 }
 
 /* *************************************** */
@@ -25,6 +16,14 @@
 }
 /* Large devices (desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
+  .routines {
+    gap: 3rem;
+    margin-top: 5rem;
+  }
+
+  .landing-img {
+    display: block;
+  }
 }
 /* Extra large devices (large desktops, 1200px and up) */
 @media only screen and (min-width: 1200px) {
