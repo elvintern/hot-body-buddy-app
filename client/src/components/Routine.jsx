@@ -19,7 +19,7 @@ export default function Routine({
 
   return (
     <div className="routine" key={routine._id}>
-      <h3 className="heading-tertiary">{routine.routineName} </h3>
+      <h3 className="heading heading--tertiary">{routine.routineName} </h3>
 
       <ShowExercises exercises={routine.exercises} />
       <button className="btn btn--routine" onClick={handleEdit}>

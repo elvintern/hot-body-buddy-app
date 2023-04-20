@@ -125,23 +125,26 @@ body {
   }
 }
 
-.heading-primary {
-  font-size: 3rem;
+.heading {
+  text-transform: capitalize;
 
-  &--quote {
-    text-transform: capitalize;
-    text-align: center;
-    color: v.$color-white;
-    margin-top: 3rem;
+  &--primary {
+    font-size: 3rem;
+
+    &--quote {
+      text-align: center;
+      color: v.$color-white;
+      margin-top: 3rem;
+    }
   }
-}
 
-.heading-secondary {
-  font-size: 2.5rem;
-}
+  &--secondary {
+    font-size: 2.8rem;
+  }
 
-.heading-tertiary {
-  font-size: 2.3rem;
+  &--tertiary {
+    font-size: 2.5rem;
+  }
 }
 
 .loading-image {

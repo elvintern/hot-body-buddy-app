@@ -3,7 +3,7 @@ import React from 'react';
 export default function About() {
   return (
     <div className="about">
-      <h2 className="heading-secondary">Welcome to Hot Body Buddy!!</h2>
+      <h2 className="heading heading--secondary">Welcome to Hot Body Buddy!!</h2>
       <p className="paragraph">
         The ultimate fitness SPA designed to help you achieve your health goals
         and make exercising a regular habit! With your Hot body buddy, you can

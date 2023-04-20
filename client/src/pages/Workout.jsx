@@ -49,7 +49,9 @@ export default function Workout() {
       ) : (
         routine && (
           <>
-            <h2 className="heading heading-secondary">{routine.routineName}</h2>
+            <h2 className="heading heading--secondary">
+              {routine.routineName}
+            </h2>
             {routine.exercises.map((exercise, index) => {
               return (
                 <div key={index} className="workout-form">

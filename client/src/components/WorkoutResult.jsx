@@ -13,11 +13,11 @@ export default function WorkoutResult({ routine, performance }) {
     <div className="workout-result">
       {routine.prevPerformance.length > 0 && (
         <div className="result-container">
-          <h2 className="heading-secondary">Previous Performance</h2>
+          <h2 className="heading heading--secondary">Previous Performance</h2>
           {routine.prevPerformance.map((el, i) => {
             return (
               <div key={`${el._id}-${i}`} className="result result--prev">
-                <h3 className="heading-tertiary">{el.exercise}</h3>
+                <h3 className="heading heading--tertiary">{el.exercise}</h3>
                 <ul className="sets">
                   <SetList id={el._id} reps={el.reps} weight={el.weight} />
                 </ul>
@@ -27,11 +27,11 @@ export default function WorkoutResult({ routine, performance }) {
         </div>
       )}
       <div className="result-container">
-        <h2 className="heading-secondary">Today's Performance</h2>
+        <h2 className="heading heading--tertiary">Today's Performance</h2>
         {performance.map((el, i) => {
           return (
             <div key={`${el._id}-${i}`} className="result result--today">
-              <h3 className="heading-tertiary">{el.exercise}</h3>
+              <h3 className="heading heading--tertiary">{el.exercise}</h3>
               <ul className="sets">
                 <SetList id={el._id} reps={el.reps} weight={el.weight} />
               </ul>

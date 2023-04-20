@@ -60,7 +60,7 @@ export default function Exercise({ exercise, performance, setPerformance }) {
 
   return (
     <>
-      <h3 className="heading-tertiary">{exercise}</h3>
+      <h3 className="heading heading--tertiary">{exercise}</h3>
       {renderComponents()}
       <button onClick={handleClick} className="btn">
         done

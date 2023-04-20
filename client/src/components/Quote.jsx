@@ -14,7 +14,7 @@ export default function Quote() {
 
   return (
     <>
-      <h1 className="heading-primary heading-primary--quote">
+      <h1 className="heading heading--primary heading--primary--quote">
         {quote ? quote.quote : 'Loading...'}
       </h1>
     </>
