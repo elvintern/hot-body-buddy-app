@@ -1,4 +1,5 @@
 import React from 'react';
+import './WorkoutResult.scss';
 
 export default function WorkoutResult({ routine, performance }) {
   const SetList = ({ id, reps, weight }) => {
@@ -12,7 +13,7 @@ export default function WorkoutResult({ routine, performance }) {
   return (
     <div className="workout-result">
       {routine.prevPerformance.length > 0 && (
-        <div className="result-container">
+        <div className="result-container result-container--previous">
           <h2 className="heading heading--secondary">Previous Performance</h2>
           {routine.prevPerformance.map((el, i) => {
             return (
@@ -26,7 +27,7 @@ export default function WorkoutResult({ routine, performance }) {
           })}
         </div>
       )}
-      <div className="result-container">
+      <div className="result-container result-container--today">
         <h2 className="heading heading--tertiary">Today's Performance</h2>
         {performance.map((el, i) => {
           return (

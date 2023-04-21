@@ -1,0 +1,56 @@
+@use '../styles/abstracts/variables.scss' as v;
+
+.workout-result {
+  display: flex;
+  flex-direction: column;
+}
+
+.result {
+  margin-top: 2rem;
+}
+
+.result-container {
+  padding: 3rem;
+  margin-bottom: 3rem;
+  border-radius: 3rem;
+
+  &--previous {
+    background-color: v.$color-blue;
+  }
+
+  &--today {
+    background-color: v.$color-green;
+  }
+}
+
+.sets {
+  list-style: none;
+}
+
+/* *************************************** */
+/* Media Stlye */
+/* *************************************** */
+/* Extra small devices (phones, less than 576px) */
+@media only screen and (max-width: 575.99px) {
+}
+/* Small devices (phones, 576px and up) */
+@media only screen and (min-width: 576px) {
+}
+/* Medium devices (tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+}
+/* Large devices (desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  .workout-result {
+    justify-content: space-between;
+    flex-direction: row;
+    gap: 5rem;
+  }
+
+  .result-container {
+    flex-grow: 1;
+  }
+}
+/* Extra large devices (large desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+}
