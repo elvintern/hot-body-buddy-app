@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 import './Set.scss';
 
 export default function Set(props) {
@@ -62,12 +64,12 @@ export default function Set(props) {
           className="form__input"
         />
       </div>
-      <div className="form__container form__container--set">
+      <div className="form__container form__container--set form__container--set--btns">
         <button onClick={addSet} className="btn btn--set">
-          +
+          <FontAwesomeIcon className="set__icon" icon={faPlus} />
         </button>
         <button onClick={deleteSet} className="btn btn--set">
-          -
+          <FontAwesomeIcon className="set__icon" icon={faMinus} />
         </button>
       </div>
     </li>

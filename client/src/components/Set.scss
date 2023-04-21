@@ -12,6 +12,10 @@
     font-size: 3rem;
     margin-bottom: 1.5rem;
   }
+
+  &__icon {
+    font-size: 4rem;
+  }
 }
 
 /* *************************************** */
@@ -33,6 +37,7 @@
     align-items: center;
 
     &__count {
+      margin-top: 0;
       margin-bottom: 0;
     }
   }

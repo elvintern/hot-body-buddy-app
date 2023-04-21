@@ -48,7 +48,6 @@ body {
 
   &--set {
     display: inline-block;
-    width: 5rem;
   }
 
   &--routine {
@@ -102,6 +101,11 @@ body {
 
     &--set {
       display: flex;
+      &--btns {
+        margin-top: 2rem;
+        justify-content: center;
+        gap: 3rem;
+      }
     }
   }
 
@@ -226,6 +230,15 @@ body {
     &__label {
       &--set {
         margin: 0rem 2rem;
+      }
+    }
+
+    &__container {
+      &--set {
+        &--btns {
+          margin: 0 0 0 3rem;
+          gap: 2rem;
+        }
       }
     }
   }
