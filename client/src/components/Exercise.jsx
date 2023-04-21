@@ -61,7 +61,7 @@ export default function Exercise({ exercise, performance, setPerformance }) {
   };
 
   return (
-    <>
+    <div className="exercise" style={isDone ? { display: 'none' } : null}>
       <h3 className="heading heading--tertiary">
         <FontAwesomeIcon className="exercise__icon" icon={faDumbbell} />
         {exercise}
@@ -70,6 +70,6 @@ export default function Exercise({ exercise, performance, setPerformance }) {
       <button onClick={handleClick} className="btn">
         done
       </button>
-    </>
+    </div>
   );
 }

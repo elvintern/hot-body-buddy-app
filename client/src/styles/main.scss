@@ -111,7 +111,7 @@ body {
     align-self: center;
 
     &--set {
-      margin: 0rem 2rem;
+      margin-right: 2rem;
     }
   }
 
@@ -221,6 +221,13 @@ body {
 @media only screen and (min-width: 992px) {
   .landing-img {
     display: block;
+  }
+  .form {
+    &__label {
+      &--set {
+        margin: 0rem 2rem;
+      }
+    }
   }
 }
 /* Extra large devices (large desktops, 1200px and up) */
