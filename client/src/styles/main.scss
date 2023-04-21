@@ -76,6 +76,11 @@ body {
     font-size: 1.8rem;
     margin-left: 2rem;
   }
+
+  &--workout {
+    background-color: v.$color-green;
+    margin-top: 3rem;
+  }
 }
 
 .form {
@@ -94,11 +99,20 @@ body {
       margin-top: 3rem;
       gap: 1rem;
     }
+
+    &--set {
+      display: flex;
+    }
   }
 
   &__label {
     text-align: left;
     font-size: 2.7rem;
+    align-self: center;
+
+    &--set {
+      margin: 0rem 2rem;
+    }
   }
 
   &__input {
@@ -129,21 +143,21 @@ body {
   text-transform: capitalize;
 
   &--primary {
-    font-size: 3rem;
+    font-size: 3.5rem;
 
     &--quote {
       text-align: center;
       color: v.$color-white;
-      margin-top: 3rem;
+      margin-top: 3.2rem;
     }
   }
 
   &--secondary {
-    font-size: 2.8rem;
+    font-size: 3rem;
   }
 
   &--tertiary {
-    font-size: 2.5rem;
+    font-size: 2.8rem;
   }
 }
 
