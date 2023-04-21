@@ -22,3 +22,14 @@
   text-decoration: none;
   transition: 0.2s linear;
 }
+
+@mixin group-style {
+  background-color: v.$color-white;
+  color: v.$color-black;
+  padding: 1rem;
+  border-radius: 2rem;
+
+  &:not(:last-child) {
+    margin-bottom: 2rem;
+  }
+}
