@@ -1,0 +1,42 @@
+@use '../styles/abstracts/variables.scss' as v;
+@use '../styles/abstracts/mixins.scss' as m;
+
+.set {
+  margin-top: 2rem;
+  @include m.group-style;
+
+  &:not(:first-child) {
+    margin-top: 2rem;
+  }
+  &__count {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+  }
+}
+
+/* *************************************** */
+/* Media Stlye */
+/* *************************************** */
+/* Extra small devices (phones, less than 576px) */
+@media only screen and (max-width: 575.99px) {
+}
+/* Small devices (phones, 576px and up) */
+@media only screen and (min-width: 576px) {
+}
+/* Medium devices (tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+}
+/* Large devices (desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  .set {
+    display: flex;
+    align-items: center;
+
+    &__count {
+      margin-bottom: 0;
+    }
+  }
+}
+/* Extra large devices (large desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+}
