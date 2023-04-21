@@ -1,14 +1,8 @@
 @use '../styles/abstracts/variables.scss' as v;
+@use '../styles/abstracts/mixins.scss' as m;
 
 .routine {
-  background-color: v.$color-white;
-  color: v.$color-black;
-  padding: 1rem;
-  border-radius: 2rem;
-
-  &:not(:first-child) {
-    margin-top: 2rem;
-  }
+  @include m.group-style;
 }
 
 /* *************************************** */
