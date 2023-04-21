@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Set from './Set.jsx';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faDumbbell } from '@fortawesome/free-solid-svg-icons';
 
 export default function Exercise({ exercise, performance, setPerformance }) {
   const [workoutResult, setWorkoutResult] = useState({
@@ -60,7 +62,10 @@ export default function Exercise({ exercise, performance, setPerformance }) {
 
   return (
     <>
-      <h3 className="heading heading--tertiary">{exercise}</h3>
+      <h3 className="heading heading--tertiary">
+        <FontAwesomeIcon className="exercise__icon" icon={faDumbbell} />
+        {exercise}
+      </h3>
       {renderComponents()}
       <button onClick={handleClick} className="btn">
         done
