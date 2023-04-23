@@ -33,6 +33,7 @@ export default function Routines() {
       prevPerformance: [],
     };
     addUserRoutine(userId, [...state.routines, newRoutine]);
+    dispatch({ type: 'setIsValid', payload: true });
   }
 
   async function updateRoutine() {
