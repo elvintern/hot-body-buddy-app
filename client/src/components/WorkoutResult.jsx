@@ -3,11 +3,13 @@ import './WorkoutResult.scss';
 
 export default function WorkoutResult({ routine, performance }) {
   const SetList = ({ id, reps, weight }) => {
-    return reps.map((rep, i) => (
-      <li className="set" key={`${id}-${i}`}>
-        {i + 1} set {rep} reps {weight[i]} kgs
-      </li>
-    ));
+    return reps
+      .filter((el) => el > 0)
+      .map((rep, i) => (
+        <li className="set" key={`${id}-${i}`}>
+          {i + 1} set {rep} reps {weight[i]} kgs
+        </li>
+      ));
   };
 
   return (
