@@ -152,7 +152,7 @@ body {
     &--quote {
       text-align: center;
       color: v.$color-white;
-      margin-top: 3.2rem;
+      margin-top: 1.5rem;
     }
   }
 
@@ -246,7 +246,7 @@ body {
 /* Extra large devices (large desktops, 1200px and up) */
 @media only screen and (min-width: 1200px) {
   html {
-    font-size: 75%;
+    font-size: 70%;
     scroll-behavior: smooth;
   }
 }

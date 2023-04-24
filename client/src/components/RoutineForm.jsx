@@ -2,6 +2,8 @@ import React from 'react';
 import ShowExercises from '../components/ShowExercises';
 import ValidCheck from '../components/ValidCheck';
 import { deleteExercise } from '../utils/routines';
+import { weight_training_exercises } from '../utils/workouts.json';
+import './RoutineForm.scss';
 
 export default function RoutineForm({
   state,
@@ -53,6 +55,27 @@ export default function RoutineForm({
           }
           onKeyDown={handleKeyPress}
         />
+        <ul className="search-dropdown">
+          {weight_training_exercises
+            .filter((item) => {
+              const searchTerm = state.exercise.toLowerCase();
+              const name = item.toLowerCase();
+              return (
+                searchTerm && name.startsWith(searchTerm) && name !== searchTerm
+              );
+            })
+            .map((el) => (
+              <li
+                key={el}
+                onClick={() => {
+                  dispatch({ type: 'setExercise', payload: el });
+                }}
+                className="search-row"
+              >
+                {el}
+              </li>
+            ))}
+        </ul>
         <ValidCheck
           isValid={state.isValid}
           message={'Exercise name should be more than 2 letters'}
