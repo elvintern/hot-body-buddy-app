@@ -6,7 +6,8 @@
 }
 
 .search-dropdown {
-  width: 100%;
+  position: absolute;
+  width: 80%;
   background-color: v.$color-white;
   color: v.$color-black;
   list-style: none;
@@ -39,6 +40,9 @@
 }
 /* Large devices (desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
+  .search-dropdown {
+    width: calc(40% - 1.5rem);
+  }
 }
 /* Extra large devices (large desktops, 1200px and up) */
 @media only screen and (min-width: 1200px) {
