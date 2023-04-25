@@ -2,11 +2,11 @@
 
 .header {
   display: flex;
-  height: 20vh;
+  height: 15vh;
   justify-content: space-between;
   align-items: center;
   background-color: v.$color-white;
-  padding: v.$padding-section;
+  padding: 0% 10%;
 
   &__btn {
     font-size: 3.5rem;
