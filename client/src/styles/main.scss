@@ -28,6 +28,10 @@ body {
   padding: v.$padding-section;
 }
 
+.paragraph {
+  font-size: 2.1rem;
+}
+
 .btn {
   @include m.btn-style;
 
