@@ -22,51 +22,33 @@ export default function About() {
         <img
           className="about__image"
           src={profile}
-          alt="profile example image"
+          alt="test user's profile page"
         />
         <p className="paragraph">
-          With your Hot body buddy, you can customize your workout routines,
-          track your progress, and receive motivational quotes to keep you
-          motivated every step of the way. Our user-friendly interface allows
-          you to easily access your profile where you can view your goals and
-          see how many times you have visited the gym. Plus, you can compare
-          your progress over time, seeing how far you've come and what you can
-          improve on. Hot Body Buddy is your perfect companion for a healthier,
-          happier you!
+          Your profile will remind your goal and how many times you went to the
+          gym since you joined this app!!
         </p>
       </div>
       <div className="about__container">
         <img
           className="about__image"
           src={routine}
-          alt="profile example image"
+          alt="test user's routine page"
         />
         <p className="paragraph">
-          With your Hot body buddy, you can customize your workout routines,
-          track your progress, and receive motivational quotes to keep you
-          motivated every step of the way. Our user-friendly interface allows
-          you to easily access your profile where you can view your goals and
-          see how many times you have visited the gym. Plus, you can compare
-          your progress over time, seeing how far you've come and what you can
-          improve on. Hot Body Buddy is your perfect companion for a healthier,
-          happier you!
+          With your Hot body buddy, you can customize your workout routines with
+          your own name!
         </p>
       </div>
       <div className="about__container">
         <img
           className="about__image"
           src={workout}
-          alt="profile example image"
+          alt="test user's workout page"
         />
         <p className="paragraph">
-          With your Hot body buddy, you can customize your workout routines,
-          track your progress, and receive motivational quotes to keep you
-          motivated every step of the way. Our user-friendly interface allows
-          you to easily access your profile where you can view your goals and
-          see how many times you have visited the gym. Plus, you can compare
-          your progress over time, seeing how far you've come and what you can
-          improve on. Hot Body Buddy is your perfect companion for a healthier,
-          happier you!
+          Our user-friendly interface allows you to easily record your gym
+          performance regardless of how many sets you do.
         </p>
       </div>
       <div className="about__container">
@@ -74,23 +56,18 @@ export default function About() {
           <img
             className="about__image"
             src={previous}
-            alt="profile example image"
+            alt="test user's previous workout performance"
           />
           <img
             className="about__image"
             src={today}
-            alt="profile example image"
+            alt="test user's today's workout performance"
           />
         </div>
         <p className="paragraph">
-          With your Hot body buddy, you can customize your workout routines,
-          track your progress, and receive motivational quotes to keep you
-          motivated every step of the way. Our user-friendly interface allows
-          you to easily access your profile where you can view your goals and
-          see how many times you have visited the gym. Plus, you can compare
-          your progress over time, seeing how far you've come and what you can
-          improve on. Hot Body Buddy is your perfect companion for a healthier,
-          happier you!
+          You can track your progress over time, seeing how far you've come and
+          what you can improve on. Hot Body Buddy is your perfect companion for
+          a healthier, happier you!
         </p>
       </div>
     </div>
