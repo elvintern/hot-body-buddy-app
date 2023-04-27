@@ -1,6 +1,7 @@
 import React from 'react';
 import profile from '../assets/profile.PNG';
-import review from '../assets/review.PNG';
+import previous from '../assets/previous.PNG';
+import today from '../assets/today.PNG';
 import routine from '../assets/routine.PNG';
 import workout from '../assets/workout.PNG';
 
@@ -18,7 +19,11 @@ export default function About() {
         and make exercising a regular habit!
       </p>
       <div className="about__container">
-        <img src={profile} alt="profile example image" />
+        <img
+          className="about__image"
+          src={profile}
+          alt="profile example image"
+        />
         <p className="paragraph">
           With your Hot body buddy, you can customize your workout routines,
           track your progress, and receive motivational quotes to keep you
@@ -31,7 +36,11 @@ export default function About() {
         </p>
       </div>
       <div className="about__container">
-        <img src={review} alt="profile example image" />
+        <img
+          className="about__image"
+          src={routine}
+          alt="profile example image"
+        />
         <p className="paragraph">
           With your Hot body buddy, you can customize your workout routines,
           track your progress, and receive motivational quotes to keep you
@@ -44,7 +53,11 @@ export default function About() {
         </p>
       </div>
       <div className="about__container">
-        <img src={routine} alt="profile example image" />
+        <img
+          className="about__image"
+          src={workout}
+          alt="profile example image"
+        />
         <p className="paragraph">
           With your Hot body buddy, you can customize your workout routines,
           track your progress, and receive motivational quotes to keep you
@@ -57,7 +70,18 @@ export default function About() {
         </p>
       </div>
       <div className="about__container">
-        <img src={workout} alt="profile example image" />
+        <div className="about__review">
+          <img
+            className="about__image"
+            src={previous}
+            alt="profile example image"
+          />
+          <img
+            className="about__image"
+            src={today}
+            alt="profile example image"
+          />
+        </div>
         <p className="paragraph">
           With your Hot body buddy, you can customize your workout routines,
           track your progress, and receive motivational quotes to keep you
