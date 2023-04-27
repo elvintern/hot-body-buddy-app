@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import profile from '../assets/profile.PNG';
 import previous from '../assets/previous.PNG';
 import today from '../assets/today.PNG';
@@ -64,12 +65,16 @@ export default function About() {
             alt="test user's today's workout performance"
           />
         </div>
-        <p className="paragraph">
+        <p className="paragraph paragraph--about">
           You can track your progress over time, seeing how far you've come and
           what you can improve on. Hot Body Buddy is your perfect companion for
           a healthier, happier you!
         </p>
       </div>
+
+      <Link to="/sign-up" className="btn btn--signup">
+        Join us!
+      </Link>
     </div>
   );
 }
