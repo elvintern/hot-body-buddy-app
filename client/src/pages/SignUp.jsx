@@ -83,7 +83,7 @@ export default function SignUp() {
           </label>
           <input
             type="textarea"
-            maxLength={30}
+            maxLength={50}
             name="goal"
             className="form__input"
             onChange={handleChange}
