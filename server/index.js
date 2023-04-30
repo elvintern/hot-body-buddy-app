@@ -6,8 +6,12 @@ import quoteRoutes from './routes/quoteRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 
 dotenv.config();
-
+import path from 'path';
+import { fileURLToPath } from 'url';
 const app = express();
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+app.use(express.static(path.join(__dirname, 'client/dist')));
 
 app.use(cors());
 app.use(express.json({ limit: '50mb' }));
@@ -17,6 +21,9 @@ app.use('/api/v1/user', userRoutes);
 
 app.get('/', async (req, res) => {
   res.send('Happy Coding!!');
+});
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname + '/client/dist/index.html'));
 });
 
 const startServer = async () => {
