@@ -17,5 +17,17 @@ export default defineConfig({
       webp: {},
     }),
   ],
+  build: {
+    outDir: '/public',
+  },
   assetsInclude: ['**/*.PNG'],
+  server: {
+    proxy: {
+      '/api/v1': {
+        target: 'http://localhost:9000',
+        changeOrigin: true,
+        secure: false,
+      },
+    },
+  },
 });
